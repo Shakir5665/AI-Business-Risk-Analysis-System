@@ -2,7 +2,7 @@ torch>=2.2
 
 sinling
 
-transformers>=4.40
+transformers
 
 adapters
 
