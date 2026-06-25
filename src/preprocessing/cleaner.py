@@ -129,7 +129,7 @@ class TextCleaner:
         # Remove Unicode whitespace
         # -------------------------------------------------
 
-        text = UNICODE_WHITESPACE_PATTERN.sub(" ", text)
+        # text = UNICODE_WHITESPACE_PATTERN.sub(" ", text)
 
         # -------------------------------------------------
         # Remove control characters
