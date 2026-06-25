@@ -86,5 +86,5 @@ REPEATED_CHARACTER_PATTERN = re.compile(
 )
 
 UNICODE_WHITESPACE_PATTERN = re.compile(
-    r"[\u2000-\u200F\u2028-\u202F]"
+    r"[\u2000-\u200B\u200E-\u200F\u2028-\u202F]"
 )
