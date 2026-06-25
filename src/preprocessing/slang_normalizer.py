@@ -4,7 +4,7 @@ Slang Normalizer
 Loads slang mappings from JSON.
 
 Project:
-AI-Powered Business Risk Analysis and Recommendation System
+AI-Powered Business Risk Analysis and Recommendation System 
 """
 
 import json
