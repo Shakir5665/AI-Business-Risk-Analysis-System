@@ -73,7 +73,7 @@ class TextCleaner:
         # -------------------------------------------------
 
         if NORMALIZE_UNICODE:
-            text = unicodedata.normalize("NFKC", text)
+            text = unicodedata.normalize("NFC", text)
 
         # -------------------------------------------------
         # Decode HTML entities
