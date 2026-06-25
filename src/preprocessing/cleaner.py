@@ -129,14 +129,14 @@ class TextCleaner:
         # Remove Unicode whitespace
         # -------------------------------------------------
 
-        # text = UNICODE_WHITESPACE_PATTERN.sub(" ", text)
+        text = UNICODE_WHITESPACE_PATTERN.sub(" ", text)
 
         # -------------------------------------------------
         # Remove control characters
         # -------------------------------------------------
 
-        if REMOVE_CONTROL_CHARACTERS:
-            text = CONTROL_CHARACTER_PATTERN.sub(" ", text)
+        # if REMOVE_CONTROL_CHARACTERS:
+        #     text = CONTROL_CHARACTER_PATTERN.sub(" ", text)
 
         # -------------------------------------------------
         # Normalize punctuation
