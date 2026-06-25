@@ -106,3 +106,27 @@ class DatasetVisualizer:
         plt.ylabel("Frequency")
 
         self._save_plot("review_length_distribution.png")
+    
+    def plot_language_distribution(
+    self,
+    language_distribution
+    ):
+
+        plt.figure(figsize=(7,5))
+
+        plt.bar(
+            language_distribution.keys(),
+            language_distribution.values()
+        )
+
+        plt.title("Language Distribution")
+
+        plt.xlabel("Language")
+
+        plt.ylabel("Reviews")
+
+        self._save_plot(
+            "language_distribution.png"
+        )
+    
+    
