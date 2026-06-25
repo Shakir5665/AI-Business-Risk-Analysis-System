@@ -1,8 +1,7 @@
 """
 Visualization Engine
 
-Generates publication-quality figures
-for dataset analysis.
+Creates publication-quality charts for dataset analysis.
 
 Project:
 AI-Powered Business Risk Analysis and Recommendation System
@@ -25,21 +24,38 @@ class DatasetVisualizer:
             exist_ok=True
         )
 
-    # ==========================================================
+    # =========================================================
+    # Common Save Function
+    # =========================================================
+
+    def _save_plot(self, filename):
+
+        output_path = FIGURE_DIR / filename
+
+        plt.tight_layout()
+
+        plt.savefig(
+            output_path,
+            dpi=300,
+            bbox_inches="tight"
+        )
+
+        plt.close()
+
+        logger.info(f"Saved figure -> {output_path}")
+
+    # =========================================================
     # Sentiment Distribution
-    # ==========================================================
+    # =========================================================
 
-    def plot_sentiment_distribution(
-        self,
-        sentiment_distribution
-    ):
+    def plot_sentiment_distribution(self, sentiments):
 
-        labels = list(sentiment_distribution.keys())
-        values = list(sentiment_distribution.values())
+        plt.figure(figsize=(7, 5))
 
-        plt.figure(figsize=(7,5))
-
-        plt.bar(labels, values)
+        plt.bar(
+            sentiments.keys(),
+            sentiments.values()
+        )
 
         plt.title("Sentiment Distribution")
 
@@ -47,33 +63,20 @@ class DatasetVisualizer:
 
         plt.ylabel("Number of Reviews")
 
-        plt.tight_layout()
+        self._save_plot("sentiment_distribution.png")
 
-        output = FIGURE_DIR / "sentiment_distribution.png"
-
-        plt.savefig(output, dpi=300)
-
-        plt.close()
-
-        logger.info(
-            f"Saved {output}"
-        )
-
-    # ==========================================================
+    # =========================================================
     # Aspect Distribution
-    # ==========================================================
+    # =========================================================
 
-    def plot_aspect_distribution(
-        self,
-        aspect_distribution
-    ):
+    def plot_aspect_distribution(self, aspects):
 
-        labels = list(aspect_distribution.keys())
-        values = list(aspect_distribution.values())
+        plt.figure(figsize=(7, 5))
 
-        plt.figure(figsize=(7,5))
-
-        plt.bar(labels, values)
+        plt.bar(
+            aspects.keys(),
+            aspects.values()
+        )
 
         plt.title("Aspect Distribution")
 
@@ -81,28 +84,15 @@ class DatasetVisualizer:
 
         plt.ylabel("Occurrences")
 
-        plt.tight_layout()
+        self._save_plot("aspect_distribution.png")
 
-        output = FIGURE_DIR / "aspect_distribution.png"
-
-        plt.savefig(output, dpi=300)
-
-        plt.close()
-
-        logger.info(
-            f"Saved {output}"
-        )
-
-    # ==========================================================
+    # =========================================================
     # Review Length Histogram
-    # ==========================================================
+    # =========================================================
 
-    def plot_review_length_distribution(
-        self,
-        review_lengths
-    ):
+    def plot_review_length_distribution(self, review_lengths):
 
-        plt.figure(figsize=(8,5))
+        plt.figure(figsize=(8, 5))
 
         plt.hist(
             review_lengths,
@@ -111,18 +101,8 @@ class DatasetVisualizer:
 
         plt.title("Review Length Distribution")
 
-        plt.xlabel("Number of Words")
+        plt.xlabel("Words per Review")
 
-        plt.ylabel("Number of Reviews")
+        plt.ylabel("Frequency")
 
-        plt.tight_layout()
-
-        output = FIGURE_DIR / "review_length_distribution.png"
-
-        plt.savefig(output, dpi=300)
-
-        plt.close()
-
-        logger.info(
-            f"Saved {output}"
-        )
+        self._save_plot("review_length_distribution.png")
