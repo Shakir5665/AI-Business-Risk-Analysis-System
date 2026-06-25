@@ -74,6 +74,8 @@ class DatasetStatistics:
 
         statistics = {
 
+            "review_lengths": review_lengths,
+            
             "total_reviews": len(self.dataset),
 
             "unique_reviews": len(unique_reviews),
