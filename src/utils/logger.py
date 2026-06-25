@@ -17,4 +17,4 @@ logging.basicConfig(
     ]
 )
 
-logger = logging.getLogger("AI-Powered-Business-Risk-Analysis-and-Recommendation-System-for-Online-Businesses")
+logger = logging.getLogger("AI-Business-Risk-Analysis-System")

@@ -1,6 +1,6 @@
 """
 Project Configuration
-AI-Powered-Business-Risk-Analysis-and-Recommendation-System-for-Online-Businesses
+AI-Business-Risk-Analysis-System
 """
 
 from pathlib import Path
@@ -9,8 +9,7 @@ from pathlib import Path
 # Project Information
 # ==========================
 
-PROJECT_NAME = "AI-Powered-Business-Risk-Analysis-and-Recommendation-System-for-Online-Businesses"
-
+PROJECT_NAME = "AI-Business-Risk-Analysis-System"
 VERSION = "2.0.0"
 
 AUTHOR = "Mohamed Shakir"
