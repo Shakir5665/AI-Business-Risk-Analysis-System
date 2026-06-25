@@ -41,9 +41,8 @@ class ReviewTokenizer:
     # --------------------------------------------------
 
     def tokenize(
-        self,
-        review: str
-    ) -> Dict:
+    self,
+    review: str) -> Dict:
 
         encoded = self.tokenizer(
 
@@ -61,11 +60,18 @@ class ReviewTokenizer:
 
         )
 
+        print("Before squeeze:", encoded["input_ids"].shape)
+
+        input_ids = encoded["input_ids"].squeeze(0)
+        attention_mask = encoded["attention_mask"].squeeze(0)
+
+        print("After squeeze:", input_ids.shape)
+
         return {
 
-            "input_ids": encoded["input_ids"].squeeze(0),
+            "input_ids": input_ids,
 
-            "attention_mask": encoded["attention_mask"].squeeze(0)
+            "attention_mask": attention_mask
 
         }
 
