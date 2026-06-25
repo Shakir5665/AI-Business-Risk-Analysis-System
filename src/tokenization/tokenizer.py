@@ -1,26 +1,158 @@
-from src.tokenization.tokenizer import ReviewTokenizer
+"""
+XLM-R Tokenizer
 
-tokenizer = ReviewTokenizer()
+Tokenizes multilingual reviews for XLM-RoBERTa.
 
-review = "Product eka original nemei but sound eka hodai."
+Project:
+AI-Powered Business Risk Analysis
+and Recommendation System
+"""
 
-result = tokenizer.tokenize(review)
+from pathlib import Path
+from typing import Dict, List
 
-print("\nInput IDs Shape")
-print(result["input_ids"].shape)
+from transformers import AutoTokenizer
 
-print("\nAttention Mask Shape")
-print(result["attention_mask"].shape)
-
-print("\nDecoded Text")
-print(
-    tokenizer.decode(
-        result["input_ids"]
-    )
+from configs.model_config import (
+    MODEL_NAME,
+    MAX_SEQUENCE_LENGTH
 )
 
-tokenizer.save(
-    "models/tokenizer"
-)
+from src.utils.logger import logger
 
-print("\nTokenizer Saved Successfully")
+
+class ReviewTokenizer:
+    """
+    Wrapper around Hugging Face XLM-R tokenizer.
+    """
+
+    def __init__(self):
+
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            MODEL_NAME
+        )
+
+        logger.info(
+            f"Loaded tokenizer: {MODEL_NAME}"
+        )
+
+    # --------------------------------------------------
+    # Tokenize Single Review
+    # --------------------------------------------------
+
+    def tokenize(
+        self,
+        review: str
+    ) -> Dict:
+
+        encoded = self.tokenizer(
+
+            review,
+
+            padding="max_length",
+
+            truncation=True,
+
+            max_length=MAX_SEQUENCE_LENGTH,
+
+            return_attention_mask=True,
+
+            return_tensors="pt"
+
+        )
+
+        return {
+
+            "input_ids": encoded["input_ids"].squeeze(0),
+
+            "attention_mask": encoded["attention_mask"].squeeze(0)
+
+        }
+
+    # --------------------------------------------------
+    # Tokenize Batch of Reviews
+    # --------------------------------------------------
+
+    def tokenize_batch(
+        self,
+        reviews: List[str]
+    ) -> Dict:
+
+        return self.tokenizer(
+
+            reviews,
+
+            padding="max_length",
+
+            truncation=True,
+
+            max_length=MAX_SEQUENCE_LENGTH,
+
+            return_attention_mask=True,
+
+            return_tensors="pt"
+
+        )
+
+    # --------------------------------------------------
+    # Decode Token IDs
+    # --------------------------------------------------
+
+    def decode(
+        self,
+        input_ids
+    ) -> str:
+
+        return self.tokenizer.decode(
+
+            input_ids,
+
+            skip_special_tokens=True
+
+        )
+
+    # --------------------------------------------------
+    # Save Tokenizer
+    # --------------------------------------------------
+
+    def save(
+        self,
+        path: str
+    ):
+
+        path = Path(path)
+
+        path.mkdir(
+
+            parents=True,
+
+            exist_ok=True
+
+        )
+
+        self.tokenizer.save_pretrained(path)
+
+        logger.info(
+
+            f"Tokenizer saved to {path}"
+
+        )
+
+    # --------------------------------------------------
+    # Load Tokenizer
+    # --------------------------------------------------
+
+    def load(
+        self,
+        path: str
+    ):
+
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            path
+        )
+
+        logger.info(
+
+            f"Tokenizer loaded from {path}"
+
+        )
