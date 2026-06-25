@@ -13,7 +13,7 @@ from src.utils.logger import logger
 
 from src.preprocessing.cleaner import TextCleaner
 from src.preprocessing.emoji_mapper import EmojiMapper
-from src.preprocessing.sinhala_converter import SinhalaConverter
+from src.preprocessing.dictionary_normalizer import DictionaryNormalizer
 from src.preprocessing.phonetic_normalizer import PhoneticNormalizer
 from src.preprocessing.slang_normalizer import SlangNormalizer
 from src.preprocessing.repeat_normalizer import RepeatNormalizer
@@ -42,7 +42,7 @@ class PreprocessingPipeline:
 
         self.emoji_mapper = EmojiMapper()
 
-        self.sinhala_converter = SinhalaConverter()
+        self.dictionary_normalizer = DictionaryNormalizer()
 
         self.phonetic_normalizer = PhoneticNormalizer()
 
@@ -69,7 +69,7 @@ class PreprocessingPipeline:
 
         if self.sinhala_converter.detect_sinhala(text):
 
-            text = self.sinhala_converter.convert_to_singlish(text)
+          text = self.dictionary_normalizer.normalize(text)
 
         # --------------------------------------------------
 
