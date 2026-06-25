@@ -1,13 +1,14 @@
 """
 Slang Normalizer
 
-Normalizes common internet abbreviations and chat slang.
+Loads slang mappings from JSON.
 
 Project:
 AI-Powered Business Risk Analysis and Recommendation System
 """
 
-import re
+import json
+from pathlib import Path
 from typing import Optional
 
 from src.utils.logger import logger
@@ -17,75 +18,21 @@ class SlangNormalizer:
 
     def __init__(self):
 
-        self.slang_map = {
+        dictionary_path = Path("resources/slang_dictionary.json")
 
-            # General
-            "plz": "please",
-            "pls": "please",
-            "plss": "please",
+        with open(dictionary_path, "r", encoding="utf-8") as f:
 
-            "thx": "thanks",
-            "tnx": "thanks",
-            "thanx": "thanks",
+            slang_groups = json.load(f)
 
-            "u": "you",
-            "ur": "your",
-            "urs": "yours",
+        self.slang_map = {}
 
-            "bcz": "because",
-            "bcz": "because",
-            "coz": "because",
-            "cozz": "because",
+        for standard_word, variations in slang_groups.items():
 
-            "msg": "message",
+            self.slang_map[standard_word] = standard_word
 
-            "omg": "oh my god",
+            for variation in variations:
 
-            "idk": "i do not know",
-
-            "imo": "in my opinion",
-
-            "btw": "by the way",
-
-            "asap": "as soon as possible",
-
-            "faq": "frequently asked questions",
-
-            "approx": "approximately",
-
-            "abt": "about",
-
-            "tmrw": "tomorrow",
-
-            "tomo": "tomorrow",
-
-            "luv": "love",
-
-            "gr8": "great",
-
-            "g8": "great",
-
-            "b4": "before",
-
-            "w8": "wait",
-
-            "gud": "good",
-
-            "okies": "okay",
-            "oky": "okay",
-            "okkk": "okay",
-
-            "sry": "sorry",
-            "soz": "sorry",
-
-            "np": "no problem",
-
-            "ty": "thank you",
-
-            "tysm": "thank you so much",
-
-            "wtf": "what the",
-        }
+                self.slang_map[variation.lower()] = standard_word
 
         logger.info(
             f"Loaded {len(self.slang_map)} slang mappings."
@@ -98,13 +45,13 @@ class SlangNormalizer:
 
         words = text.split()
 
-        normalized = []
+        normalized_words = []
 
         for word in words:
 
             key = word.lower()
 
-            normalized.append(
+            normalized_words.append(
 
                 self.slang_map.get(
                     key,
@@ -113,7 +60,7 @@ class SlangNormalizer:
 
             )
 
-        return " ".join(normalized)
+        return " ".join(normalized_words)
 
     def normalize_batch(self, texts):
 
