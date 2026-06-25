@@ -25,63 +25,62 @@ class DatasetStatistics:
 
         unique_reviews = set()
 
-        duplicate_count = 0
+        duplicate_reviews = 0
 
         for sample in self.dataset:
 
-            # -----------------------------
+            # -------------------------
             # Sentiment
-            # -----------------------------
+            # -------------------------
 
-            sentiment_counter[
-                sample["sentiment"].lower()
-            ] += 1
+            sentiment = sample["sentiment"].strip().lower()
 
-            # -----------------------------
+            sentiment_counter[sentiment] += 1
+
+            # -------------------------
             # Aspects
-            # -----------------------------
+            # -------------------------
 
             for aspect in sample["aspects"]:
 
-                aspect_counter[
-                    aspect.lower()
-                ] += 1
+                aspect_counter[aspect.lower()] += 1
 
-            # -----------------------------
+            # -------------------------
             # Review Length
-            # -----------------------------
+            # -------------------------
 
-            review_lengths.append(
-                len(sample["text"].split())
-            )
+            length = len(sample["text"].split())
 
-            # -----------------------------
+            review_lengths.append(length)
+
+            # -------------------------
             # Duplicate Detection
-            # -----------------------------
+            # -------------------------
 
             text = sample["text"].strip()
 
             if text in unique_reviews:
-                duplicate_count += 1
+                duplicate_reviews += 1
             else:
                 unique_reviews.add(text)
 
-        statistics = {
+        return {
 
             "total_reviews": len(self.dataset),
 
             "unique_reviews": len(unique_reviews),
 
-            "duplicate_reviews": duplicate_count,
+            "duplicate_reviews": duplicate_reviews,
 
             "sentiment_distribution": dict(sentiment_counter),
 
             "aspect_distribution": dict(aspect_counter),
 
-            # ⭐ This is needed for histogram plotting
+            # Raw lengths for plotting
             "review_lengths": review_lengths,
 
-            "review_length": {
+            # Summary statistics
+            "review_length_statistics": {
 
                 "average": round(mean(review_lengths), 2),
 
@@ -94,8 +93,7 @@ class DatasetStatistics:
                 "std": round(
                     stdev(review_lengths), 2
                 ) if len(review_lengths) > 1 else 0
+
             }
 
         }
-
-        return statistics
