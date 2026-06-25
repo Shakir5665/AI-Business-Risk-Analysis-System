@@ -74,33 +74,33 @@ class DatasetStatistics:
 
         statistics = {
 
-            "review_lengths": review_lengths,
-            
-            "total_reviews": len(self.dataset),
+    "total_reviews": len(self.dataset),
 
-            "unique_reviews": len(unique_reviews),
+    "unique_reviews": len(unique_reviews),
 
-            "duplicate_reviews": duplicate_count,
+    "duplicate_reviews": duplicate_count,
 
-            "sentiment_distribution": dict(sentiment_counter),
+    "sentiment_distribution": dict(sentiment_counter),
 
-            "aspect_distribution": dict(aspect_counter),
+    "aspect_distribution": dict(aspect_counter),
 
-            "review_length": {
+    # Needed for histogram plotting
+    "review_lengths": review_lengths,
 
-                "average": round(mean(review_lengths), 2),
+    "review_length": {
 
-                "minimum": min(review_lengths),
+        "average": round(mean(review_lengths), 2),
 
-                "maximum": max(review_lengths),
+        "minimum": min(review_lengths),
 
-                "median": median(review_lengths),
+        "maximum": max(review_lengths),
 
-                "std": round(
-                    stdev(review_lengths), 2
-                ) if len(review_lengths) > 1 else 0
-            }
+        "median": median(review_lengths),
 
-        }
+        "std": round(
+            stdev(review_lengths), 2
+        ) if len(review_lengths) > 1 else 0
+    }
+}
 
         return statistics
