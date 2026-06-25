@@ -1,0 +1,331 @@
+"""
+Phonetic Normalizer - Normalizes spelling variations
+SRS Section: Objective 2 - Phonetic mapping
+Decision 11: A - Dictionary-based
+"""
+
+import re
+from typing import Dict, List, Optional
+
+class PhoneticNormalizer:
+    """
+    Normalizes phonetic variations in Singlish text
+    Example: "hodaai" → "hodai", "delivari" → "delivery"
+    """
+    
+    def __init__(self):
+        """Initialize the normalization dictionary"""
+        self.normalization_map = self._build_normalization_map()
+        self.reverse_map = self._build_reverse_map()
+    
+    def _build_normalization_map(self) -> Dict[str, str]:
+        """Build dictionary of variation → standard form"""
+        
+        return {
+    # Delivery variations
+    'delivery': 'delivery',
+    'delivary': 'delivery',
+    'delivari': 'delivery',
+    'delivry': 'delivery',
+    'dilivery': 'delivery',
+    'dilivary': 'delivery',
+    'dilivari': 'delivery',
+    'dilivry': 'delivery',
+    'deliwary': 'delivery',
+    
+    # Quality variations
+    'quality': 'quality',
+    'qualiti': 'quality',
+    'quallity': 'quality',
+    'kwality': 'quality',
+    'kwaliti': 'quality',
+    'qulity': 'quality',
+    'qualty': 'quality',
+    
+    # Product variations
+    'product': 'product',
+    'produkt': 'product',
+    'prodact': 'product',
+    'produt': 'product',
+    'product ek': 'product',
+    'produk': 'product',
+    
+    # Good variations
+    'hodai': 'hodai',
+    'hoda': 'hodai',
+    'hodaai': 'hodai',
+    'hodayi': 'hodai',
+    'hodaayi': 'hodai',
+    'hodaii': 'hodai',
+    'hodath': 'hodai',
+    'hody' : 'hodai',
+    
+    # Bad / Not good variations
+    'narakai': 'narakai',
+    'naraka': 'narakai',
+    'narakay': 'narakai',
+    'narakaii': 'narakai',
+    'nadda': 'nadda',
+    'na': 'na',
+    'naha': 'naha',
+    'netha': 'netha',
+    'nae': 'nae',
+    'nemei': 'nemei',
+    
+    # Late variations
+    'pramada': 'pramada',
+    'pramadai': 'pramada',
+    'pramadae': 'pramada',
+    'pramaday': 'pramada',
+    'pramada veena': 'pramada',
+    'prkku': 'pramada',
+    
+    # Trust variations
+    'viswasaya': 'viswasaya',
+    'visvasa': 'viswasaya',
+    'viswasay': 'viswasaya',
+    'viswasa': 'viswasaya',
+    'withwasaya': 'viswasaya',
+    'wishwasa': 'viswasaya',
+    
+    # Price variations
+    'price': 'price',
+    'pric': 'price',
+    'praice': 'price',
+    'pris': 'price',
+    
+    # Service variations
+    'service': 'service',
+    'servis': 'service',
+    'sarvis': 'service',
+    'sarvice': 'service',
+    'sarvice eka': 'service',
+    
+    # Time variations
+    'time': 'time',
+    'taim': 'time',
+    'tyme': 'time',
+    'taim ek': 'time',
+    
+    # Money variations
+    'money': 'money',
+    'mone': 'money',
+    'muni': 'money',
+    'maney': 'money',
+    'salli': 'money',
+    'gaan': 'money',
+    
+    # Return variations
+    'return': 'return',
+    'retun': 'return',
+    'retarn': 'return',
+    'riturn': 'return',
+    'rifnd': 'return',
+    'refund': 'return',
+    
+    # Order variations
+    'order': 'order',
+    'orda': 'order',
+    'ordar': 'order',
+    'oder': 'order',
+    'odr': 'order',
+    
+    # Payment variations
+    'payment': 'payment',
+    'paymnt': 'payment',
+    'paymen': 'payment',
+    'peyment': 'payment',
+    
+    # Working / Functioning
+    'wada': 'wada',
+    'vaed': 'wada',
+    'veda': 'wada',
+    'wedak': 'wada',
+    'wada na': 'wada_naha',
+    'vaed na': 'wada_naha',
+    'wada naha': 'wada_naha',
+    'vaed krnne na': 'wada_naha',
+    'wada karanne naha': 'wada_naha',
+    
+    # Fake / Scam
+    'fake': 'fake',
+    'feak': 'fake',
+    'facke': 'fake',
+    'scam': 'scam',
+    'boru': 'fake',
+    'boruwak': 'fake',
+    'original nemeyi': 'fake',
+    'copy': 'fake',
+    'duplicate': 'fake',
+    
+    # Delivery issues
+    'damage': 'damage',
+    'damage wela': 'damage',
+    'hirila': 'damage',
+    'kaduna': 'damage',
+    'bindila': 'damage',
+    'kaedunaa': 'damage',
+    
+
+    
+    # Response issue
+    'reply na': 'reply',
+    'riplyi ': 'reply',
+    'rply': 'reply',
+    'rspnse': 'response',
+    'respnse': 'response',
+    
+    
+    # Common Sinhala-English mixed words
+    'eka': 'eka',
+    'ekak': 'ekak',
+    'thiyenawa': 'thiyenawa',
+    'nadda': 'nadda',
+    'match': 'match',
+    'mach': 'match',
+    'hodata': 'hodata',
+    'harida': 'harida',
+    'hari': 'hari',
+    'hri': 'hari',
+    'hariyata': 'hari',
+    'harima': 'harima',
+    'gdak': 'godak',
+    'aththtm' : 'aththatama',
+    'sirawat' : 'aththatama',
+    'supri': 'supiri',
+    'ganna': 'ganna',
+    'gnn': 'ganna',
+    'denn': 'denna',
+    'yanna': 'yanna',
+    'enna': 'enna',
+    'krnn': 'karanna',
+    'krn': 'karanna',
+    'hambuna': 'hambuna',
+    'lebuna': 'hambuna',
+    'labuna': 'hambuna',
+    'awe': 'awe',
+    'evva': 'awe',
+    'ewala': 'awe',
+    'thx' : 'thanks',
+    'niymyi':'niyamai',
+    'laabyi':'laabaai',
+    'vaedkrnnae': 'weda_karan_ne',
+    'oodr':'order',
+    'plz':'please',
+    
+    
+    # Warranty
+    'warranty': 'warranty',
+    'woranti': 'warranty',
+    'wrnti': 'warranty'
+    
+}
+    
+    def _build_reverse_map(self) -> Dict[str, List[str]]:
+        """Build reverse mapping for debugging"""
+        reverse = {}
+        for variation, standard in self.normalization_map.items():
+            if standard not in reverse:
+                reverse[standard] = []
+            reverse[standard].append(variation)
+        return reverse
+    
+    def normalize(self, text: str) -> str:
+        """
+        Normalize phonetic variations in text
+        
+        Args:
+            text: Input text with possible variations
+            
+        Returns:
+            Text with normalized spellings
+        """
+        if not text:
+            return text
+        
+        result = text.lower()
+        
+        # Sort by length (longest first) to avoid partial replacements
+        sorted_variations = sorted(
+            self.normalization_map.keys(),
+            key=len,
+            reverse=True
+        )
+        
+        # Apply replacements
+        for variation in sorted_variations:
+            standard = self.normalization_map[variation]
+            # Use word boundaries to avoid partial matches
+            pattern = r'\b' + re.escape(variation) + r'\b'
+            result = re.sub(pattern, standard, result)
+        
+        return result
+    
+    def add_custom_mapping(self, variation: str, standard: str):
+        """Add custom mapping for domain-specific terms"""
+        self.normalization_map[variation] = standard
+        if standard not in self.reverse_map:
+            self.reverse_map[standard] = []
+        self.reverse_map[standard].append(variation)
+    
+    def get_variations(self, standard_word: str) -> List[str]:
+        """Get all variations for a standard word"""
+        return self.reverse_map.get(standard_word, [])
+    
+    def explain_normalization(self, text: str) -> Dict:
+        """
+        Explain what changes were made during normalization
+        Returns dict with original, normalized, and changes made
+        """
+        original = text
+        normalized = self.normalize(text)
+        
+        changes = []
+        if original != normalized:
+            # Find what changed
+            original_words = original.lower().split()
+            normalized_words = normalized.split()
+            
+            for i, (orig, norm) in enumerate(zip(original_words, normalized_words)):
+                if orig != norm:
+                    changes.append({
+                        'position': i,
+                        'original': orig,
+                        'normalized': norm,
+                        'type': 'phonetic'
+                    })
+        
+        return {
+            'original': original,
+            'normalized': normalized,
+            'changes_made': len(changes) > 0,
+            'changes': changes
+        }
+
+
+# Test the normalizer
+if __name__ == "__main__":
+    normalizer = PhoneticNormalizer()
+    
+    test_phrases = [
+        "delivari is very late",
+        "hodaai product quality super",
+        "viswasa issue ekak thiyenawa",
+        "delivary eka pramadai",
+        "this is a produkt with good kwaliti",
+    ]
+    
+    print("=" * 60)
+    print("PHONETIC NORMALIZER TEST")
+    print("=" * 60)
+    
+    for phrase in test_phrases:
+        result = normalizer.normalize(phrase)
+        print(f"\nOriginal: {phrase}")
+        print(f"Normalized: {result}")
+        
+        # Show explanation
+        explanation = normalizer.explain_normalization(phrase)
+        if explanation['changes_made']:
+            print(f"Changes: {explanation['changes']}")
+        print("-" * 40)
