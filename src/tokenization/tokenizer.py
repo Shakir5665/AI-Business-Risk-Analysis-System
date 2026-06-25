@@ -42,7 +42,10 @@ class ReviewTokenizer:
 
     def tokenize(
     self,
-    review: str) -> Dict:
+    review: str
+) -> Dict:
+
+        print(">>> tokenize() called <<<")
 
         encoded = self.tokenizer(
 
@@ -60,18 +63,13 @@ class ReviewTokenizer:
 
         )
 
-        print("Before squeeze:", encoded["input_ids"].shape)
-
-        input_ids = encoded["input_ids"].squeeze(0)
-        attention_mask = encoded["attention_mask"].squeeze(0)
-
-        print("After squeeze:", input_ids.shape)
+        print(encoded["input_ids"].shape)
 
         return {
 
-            "input_ids": input_ids,
+            "input_ids": encoded["input_ids"].squeeze(0),
 
-            "attention_mask": attention_mask
+            "attention_mask": encoded["attention_mask"].squeeze(0)
 
         }
 
