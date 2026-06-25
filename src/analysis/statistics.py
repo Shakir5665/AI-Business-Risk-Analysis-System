@@ -17,12 +17,6 @@ class DatasetStatistics:
         self.dataset = dataset
 
     def compute(self):
-        """
-        Compute dataset statistics.
-
-        Returns:
-            dict
-        """
 
         sentiment_counter = Counter()
         aspect_counter = Counter()
@@ -35,17 +29,17 @@ class DatasetStatistics:
 
         for sample in self.dataset:
 
-            # ----------------------------
+            # -----------------------------
             # Sentiment
-            # ----------------------------
+            # -----------------------------
 
             sentiment_counter[
                 sample["sentiment"].lower()
             ] += 1
 
-            # ----------------------------
+            # -----------------------------
             # Aspects
-            # ----------------------------
+            # -----------------------------
 
             for aspect in sample["aspects"]:
 
@@ -53,17 +47,17 @@ class DatasetStatistics:
                     aspect.lower()
                 ] += 1
 
-            # ----------------------------
+            # -----------------------------
             # Review Length
-            # ----------------------------
+            # -----------------------------
 
             review_lengths.append(
                 len(sample["text"].split())
             )
 
-            # ----------------------------
+            # -----------------------------
             # Duplicate Detection
-            # ----------------------------
+            # -----------------------------
 
             text = sample["text"].strip()
 
@@ -74,33 +68,34 @@ class DatasetStatistics:
 
         statistics = {
 
-    "total_reviews": len(self.dataset),
+            "total_reviews": len(self.dataset),
 
-    "unique_reviews": len(unique_reviews),
+            "unique_reviews": len(unique_reviews),
 
-    "duplicate_reviews": duplicate_count,
+            "duplicate_reviews": duplicate_count,
 
-    "sentiment_distribution": dict(sentiment_counter),
+            "sentiment_distribution": dict(sentiment_counter),
 
-    "aspect_distribution": dict(aspect_counter),
+            "aspect_distribution": dict(aspect_counter),
 
-    # Needed for histogram plotting
-    "review_lengths": review_lengths,
+            # ⭐ This is needed for histogram plotting
+            "review_lengths": review_lengths,
 
-    "review_length": {
+            "review_length": {
 
-        "average": round(mean(review_lengths), 2),
+                "average": round(mean(review_lengths), 2),
 
-        "minimum": min(review_lengths),
+                "minimum": min(review_lengths),
 
-        "maximum": max(review_lengths),
+                "maximum": max(review_lengths),
 
-        "median": median(review_lengths),
+                "median": median(review_lengths),
 
-        "std": round(
-            stdev(review_lengths), 2
-        ) if len(review_lengths) > 1 else 0
-    }
-}
+                "std": round(
+                    stdev(review_lengths), 2
+                ) if len(review_lengths) > 1 else 0
+            }
+
+        }
 
         return statistics
