@@ -45,31 +45,25 @@ class ReviewTokenizer:
     review: str
 ) -> Dict:
 
-        print(">>> tokenize() called <<<")
-
         encoded = self.tokenizer(
-
             review,
-
             padding="max_length",
-
             truncation=True,
-
             max_length=MAX_SEQUENCE_LENGTH,
-
             return_attention_mask=True,
-
             return_tensors="pt"
-
         )
 
-        print(encoded["input_ids"].shape)
+        input_ids = encoded["input_ids"][0]
+        attention_mask = encoded["attention_mask"][0]
+
+        print("Shape after indexing:", input_ids.shape)
 
         return {
 
-            "input_ids": encoded["input_ids"].squeeze(0),
+            "input_ids": input_ids,
 
-            "attention_mask": encoded["attention_mask"].squeeze(0)
+            "attention_mask": attention_mask
 
         }
 
