@@ -1,6 +1,6 @@
 import torch
 
-from src.model.classification_heads import (
+from src.models.classification_heads import (
     SentimentHead,
     AspectHead
 )
