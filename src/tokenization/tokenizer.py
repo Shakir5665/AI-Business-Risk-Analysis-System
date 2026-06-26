@@ -57,7 +57,6 @@ class ReviewTokenizer:
         input_ids = encoded["input_ids"][0]
         attention_mask = encoded["attention_mask"][0]
 
-        print("Shape after indexing:", input_ids.shape)
 
         return {
 
