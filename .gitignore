@@ -4,17 +4,22 @@ __pycache__/
 
 # Virtual environments
 venv/
-.env
+.env/
 
 # Jupyter
 .ipynb_checkpoints/
 
-# Outputs
-outputs/
-checkpoints/
+# Model checkpoints
+models/checkpoints/
 
-# VS Code
-.vscode/
+# Large model files
+*.bin
+*.pt
+*.pth
+*.safetensors
 
-# macOS
-.DS_Store
+# Logs
+logs/
+
+# Temporary files
+*.tmp
