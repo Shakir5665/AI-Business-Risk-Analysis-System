@@ -1,6 +1,6 @@
 import torch
 
-from src.model.adapter import Adapter
+from src.models.adapter import Adapter
 
 adapter = Adapter()
 
