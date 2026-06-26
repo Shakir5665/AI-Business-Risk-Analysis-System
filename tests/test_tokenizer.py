@@ -6,34 +6,11 @@ review = "Product eka original nemei but sound eka hodai."
 
 result = tokenizer.tokenize(review)
 
-print("\nInput IDs")
-
+print(type(result["input_ids"]))
 print(result["input_ids"])
+print(result["input_ids"].shape)
 
-print()
+print(type(result["attention_mask"]))
+print(result["attention_mask"].shape)
 
-print("Attention Mask")
-
-print(result["attention_mask"])
-
-print()
-
-print("Decoded Text")
-
-print(
-
-    tokenizer.decode(
-
-        result["input_ids"][0]
-
-    )
-
-)
-
-tokenizer.save(
-
-    "models/tokenizer"
-
-)
-
-print("\nTokenizer Saved Successfully")
+print(tokenizer.decode(result["input_ids"]))
