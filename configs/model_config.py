@@ -28,7 +28,7 @@ HIDDEN_SIZE = 768
 # Adapter Configuration
 # --------------------------------------------------
 
-ADAPTER_DIM' = 64
+ADAPTER_DIM = 64
 
 ADAPTER_DROPOUT = 0.1
  
