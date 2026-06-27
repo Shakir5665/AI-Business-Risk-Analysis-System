@@ -73,21 +73,10 @@ class BusinessRiskModel(nn.Module):
         # Adapters
         # -----------------------------
 
-        self.sentiment_adapter = Adapter(
+        self.sentiment_adapter = Adapter()
+    
 
-            hidden_size=HIDDEN_SIZE,
-
-            bottleneck_size=ADAPTER_DIM
-
-        )
-
-        self.aspect_adapter = Adapter(
-
-            hidden_size=HIDDEN_SIZE,
-
-            bottleneck_size=ADAPTER_DIM
-
-        )
+        self.aspect_adapter = Adapter()
 
         # -----------------------------
         # Classification Heads
