@@ -31,7 +31,7 @@ HIDDEN_SIZE = 768
 ADAPTER_BOTTLENECK_SIZE = 64
 
 ADAPTER_DROPOUT = 0.1
-
+ 
 # --------------------------------------------------
 # Classification Heads
 # --------------------------------------------------
