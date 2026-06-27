@@ -77,7 +77,7 @@ class BusinessRiskModel(nn.Module):
 
             hidden_size=HIDDEN_SIZE,
 
-            bottleneck_size=ADAPTER_BOTTLENECK_SIZE
+            bottleneck_size=ADAPTER_DIM
 
         )
 
@@ -85,7 +85,7 @@ class BusinessRiskModel(nn.Module):
 
             hidden_size=HIDDEN_SIZE,
 
-            bottleneck_size=ADAPTER_BOTTLENECK_SIZE
+            bottleneck_size=ADAPTER_DIM
 
         )
 
