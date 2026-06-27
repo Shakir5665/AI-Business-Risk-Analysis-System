@@ -45,7 +45,7 @@ from src.models.classification_heads import (
 
 from configs.model_config import (
     HIDDEN_SIZE,
-    ADAPTER_BOTTLENECK_SIZE
+    ADAPTER_DIM
 )
 
 from src.utils.logger import logger
