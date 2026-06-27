@@ -39,3 +39,13 @@ ADAPTER_DROPOUT = 0.1
 CLASSIFIER_DROPOUT = 0.3
 
 NUM_SENTIMENT_CLASSES = 3
+
+# ==================================================
+# Backbone
+# ==================================================
+
+MODEL_NAME = "FacebookAI/xlm-roberta-base"
+
+HIDDEN_SIZE = 768
+
+FREEZE_BACKBONE = True

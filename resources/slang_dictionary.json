@@ -24,7 +24,13 @@
     "වටිනවා": ["watinawa", "vatinawa", "wattinawa", "vattinawa", "watina", "vatina", "wattina", "vattina", "wtnwa", "vtnwa", "watinaw", "vatinaw", "wattinaw", "vattinaw", "wati", "vati", "wttnwa", "vttnwa", "wathinawa", "vathinawa"],
     "ගන්ට": ["ganata", "ganat", "ganta", "gant", "gnata", "gnat", "gnta", "gnt", "gannta", "gannt", "ganataa", "gantaa", "gnataa", "gnat", "ganta"],
     "ටිකක්": ["tika", "tikak", "tikkak", "tikk", "tik", "tikaak", "tikakk", "tikkk", "tiktik", "tika", "tikkak", "tikaa", "tikk", "tikak", "tikaak", "tikkak"],
-
+    "අද": ["adha", "ada", "ad", "adh", "adaa", "adhaa", "ad", "adh"],
+    "අඩුම": ["aduma", "adum", "aduma", "adumaa", "aduma", "adum", "aduum", "aduma"],
+    "ඇහුවම": ["ahuwama", "ahuama", "ahuwaama", "ahuwama", "ahuama", "ahuwaama", "ahuwam", "ahuam", "ahuwamaa", "ahuamaa"],
+    "එකනම්": ["ekanam", "akanam", "ehanam", "ahnm", "ehanm", "ekanm", "eknm", "akanm", "ehanm", "ekanam", "akanam", "ehanam", "ahnm"],
+    "එකවත්": ["ekawath", "akwath", "ekawath", "akwath", "ekawath", "akwath", "ekawth", "akwth", "ekawath", "akwath"],
+    "අලුත්": ["aluth", "alut", "alt", "aluth", "alut", "alt", "aluth", "alut", "alt", "aluth"],
+    
 
     "අඩු": ["adu"],
     "ලස්සනයි": ["lassnai", "lasanai", "lassn", "lasn", "lassni", "lasani", "lssn", "lssnai", "lassanaii", "lsanai", "lassna", "lssni", "lassnay", "lasnai", "lssnay", "lassni", "lasanai", "lssni", "lassn", "lsn", "lasn", "lss"],
