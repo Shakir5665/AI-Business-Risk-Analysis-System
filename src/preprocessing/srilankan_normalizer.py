@@ -1,7 +1,7 @@
 """
-Slang Normalizer
+Sri Lankan Normalizer
 
-Loads slang mappings from JSON.
+Loads Sri Lankan slang/domain mappings from JSON.
 
 Project:
 AI-Powered Business Risk Analysis and Recommendation System
@@ -14,7 +14,7 @@ from typing import Optional
 from src.utils.logger import logger
 
 
-class SlangNormalizer:
+class SriLankanNormalizer:
 
     def __init__(self):
 
@@ -35,21 +35,21 @@ class SlangNormalizer:
         with open(dictionary_path, "r", encoding="utf-8") as f:
             slang_groups = json.load(f)
 
-        self.slang_map = {}
+        self.normalizer_map = {}
 
         for standard_word, variations in slang_groups.items():
 
             # Add the standard word itself
-            self.slang_map[standard_word.lower()] = standard_word
+            self.normalizer_map[standard_word.lower()] = standard_word
 
             # Add all variations
             for variation in variations:
-                self.slang_map[
+                self.normalizer_map[
                     variation.lower()
                 ] = standard_word
 
         logger.info(
-            f"Loaded {len(self.slang_map)} slang mappings."
+            f"Loaded {len(self.normalizer_map)} Sri Lankan mappings."
         )
 
     def normalize(self, text: Optional[str]) -> str:
@@ -73,7 +73,7 @@ class SlangNormalizer:
                 suffix = word[-1] + suffix
                 word = word[:-1]
 
-            normalized = self.slang_map.get(
+            normalized = self.normalizer_map.get(
                 word.lower(),
                 word
             )

@@ -13,10 +13,8 @@ from src.utils.logger import logger
 
 from src.preprocessing.cleaner import TextCleaner
 from src.preprocessing.emoji_mapper import EmojiMapper
-from src.preprocessing.dictionary_normalizer import DictionaryNormalizer
 from src.preprocessing.repeat_normalizer import RepeatNormalizer
-from src.preprocessing.phonetic_normalizer import PhoneticNormalizer
-from src.preprocessing.slang_normalizer import SlangNormalizer
+from src.preprocessing.srilankan_normalizer import SriLankanNormalizer
 
 
 class ReviewPreprocessor:
@@ -29,13 +27,9 @@ class ReviewPreprocessor:
 
         self.emoji_mapper = EmojiMapper()
 
-        self.dictionary = DictionaryNormalizer()
-
         self.repeat = RepeatNormalizer()
 
-        self.phonetic = PhoneticNormalizer()
-
-        self.slang = SlangNormalizer()
+        self.srilankan = SriLankanNormalizer()
 
         logger.info("ReviewPreprocessor initialized successfully.")
 
@@ -50,13 +44,9 @@ class ReviewPreprocessor:
 
         text = self.emoji_mapper.convert_emojis_to_tokens(text)
 
-        text = self.dictionary.normalize(text)
-
         text = self.repeat.normalize(text)
 
-        text = self.phonetic.normalize(text)
-
-        text = self.slang.normalize(text)
+        text = self.srilankan.normalize(text)
 
         return text.strip()
 

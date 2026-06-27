@@ -54,8 +54,7 @@ class TextCleaner:
     Does NOT perform:
         - Emoji conversion
         - Sinhala conversion
-        - Phonetic normalization
-        - Slang normalization
+        - Sri Lankan normalization
     """
 
     def __init__(self):
