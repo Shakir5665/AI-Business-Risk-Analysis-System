@@ -10,7 +10,7 @@ and Recommendation System
 # Base Model
 # --------------------------------------------------
 
-MODEL_NAME = "xlm-roberta-base"
+MODEL_NAME = "FacebookAI/xlm-roberta-base"
 
 # --------------------------------------------------
 # Tokenization
@@ -28,7 +28,7 @@ HIDDEN_SIZE = 768
 # Adapter Configuration
 # --------------------------------------------------
 
-ADAPTER_DIM = 64
+ADAPTER_BOTTLENECK_SIZE = 64
 
 ADAPTER_DROPOUT = 0.1
 
@@ -43,8 +43,6 @@ NUM_SENTIMENT_CLASSES = 3
 # ==================================================
 # Backbone
 # ==================================================
-
-MODEL_NAME = "FacebookAI/xlm-roberta-base"
 
 HIDDEN_SIZE = 768
 
