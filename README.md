@@ -107,3 +107,5 @@ AI-Business-Risk-Analysis-System/
 ├── walkthrough.md                        # Detailed walkthrough guide
 └── README.md                             # Project overview and documentation
 ```
+
+$env:PYTHONPATH="."; $env:PYTHONIOENCODING="utf-8"; python tests/test_preprocessor.py
