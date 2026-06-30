@@ -139,6 +139,8 @@ class Validator:
 
         batches = len(dataloader)
 
+        model.train()
+
         return {
 
             "loss": {
@@ -156,3 +158,5 @@ class Validator:
             "aspect": aspect_metrics
 
         }
+    
+       
