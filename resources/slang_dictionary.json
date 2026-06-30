@@ -21,7 +21,7 @@
     "මටනම්": ["matanam", "matanm", "matanam", "matanm", "mtanam", "mtanm", "matnam"],
     "අපේ": ["ape", "ape", "ap", "apee", "ap", "ape", "ape", "ape"],
     "අපගේ": ["apage", "apage", "apag", "apage", "apag", "apage", "apg", "apage"],
-    "අපි": ["api", "api", "ap", "apii", "api", "ap", "apii", "api"],
+    "අපි": ["api", "ap"],
     "අපිට": ["apita", "apita", "apit", "apita", "apit", "apita", "apta", "apita"],
     "ඔයා": ["oya", "oyaa", "oya", "oy", "oyaa", "oy", "oya", "oya"],
     "ඔයාට": ["oyata", "oyata", "oyat", "oyata", "oyat", "oyata", "oyta", "oyata"],
@@ -34,6 +34,13 @@
     "ඔක්කොම": ["okkoma", "okkoma", "okkom", "okkoma", "okkom", "okkoma", "okkoma", "okkoma"],
     "එයා": ["eya", "eya", "ey", "eyaa", "ey", "eya", "eya", "eya","aya"],
     "මූ": ["mu", "mu", "m", "muu", "m", "mu", "muu", "mu"],
+
+
+    "මේක": ["meka", "mek"],
+    "එකක්": ["ekak", "ekk", "ekak", "ek", "ekak", "ekk", "ekaak"],
+    "එවන්න": ["ewanawa", "ewnawa", "ewanwa", "ewanaw", "ewnw", "ewanawa", "ewnawa"],
+    "ගෙවන": ["gewana", "gewana", "gewna", "gewana", "gewna", "gewana", "gena"],
+    "කියලා": ["kiyala", "kiyala", "kiyl", "kiyala", "kiyla", "kiyala", "kyala"],
     "එගොල්ලෝ": ["egollo", "egollo", "egoll", "egollo", "egoll", "egollo", "egollo", "egollo"],
    
    "ඇත්තටම": ["aththtm", "sirawat", "aththatm", "athtma", "attama", "aththm", "æththtm", "atht", "athm", "ættm", "athtm", "aththama", "aththatama", "srw", "srwat", "ath", "atm", "athtam", "æthtm", "srawt", "sirwt"],
