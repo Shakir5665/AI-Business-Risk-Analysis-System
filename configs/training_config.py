@@ -75,4 +75,4 @@ CHECKPOINT_DIR = "checkpoints"
 
 BEST_MODEL_NAME = "best_model.pt"
 
-LATEST_CHECKPOINT_NAME = "latest_checkpoint.pt"
+LATEST_CHECKPOINT_NAME = "latest_checkpoint.pt" 
