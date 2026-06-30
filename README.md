@@ -1,3 +1,5 @@
+$env:PYTHONPATH="."; $env:PYTHONIOENCODING="utf-8"; python tests/test_preprocessor.py
+
 # AI-Business-Risk-Analysis-System
 
 ## Folder Structure
