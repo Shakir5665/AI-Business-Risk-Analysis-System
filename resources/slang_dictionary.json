@@ -16,6 +16,7 @@
     "item" : ["irems","irem"],
     "packing" : ["paking"],
     "Charge":["chj","carge","carg"],
+    "nice" : [" nyz"],
     
     "මම": ["mama", "mam"],
     "මට": ["mata", "mat", "mta", "mataa", "mat"],
@@ -46,6 +47,7 @@
     "ගෙවන": ["gewana", "gewana", "gewna", "gewana", "gewna", "gewana", "gena"],
     "කියලා": ["kiyala", "kiyala", "kiyl", "kiyala", "kiyla", "kiyala", "kyala"],
     "එගොල්ලෝ": ["egollo", "egollo", "egoll", "egollo", "egoll", "egollo", "egollo", "egollo"],
+    "ලාභයි": ["labai", "laabai", "labayi", "laabayi", "labi", "laabi", "labaii", "laabaii", "lby", "laby"],
    
    "ඇත්තටම": ["aththtm", "sirawat", "aththatm", "athtma", "attama", "aththm", "æththtm", "atht", "athm", "ættm", "athtm", "aththama", "aththatama", "srw", "srwat", "ath", "atm", "athtam", "æthtm", "srawt", "sirwt"],
     "ගොඩක්": ["gdak", "godk", "godaak", "gdk", "godak", "goda", "godkk", "godakkk", "godxk", "g0dak", "godaq", "goddk", "godak", "godakk", "gdk", "godk", "g0dk", "godaakkk", "godkak"],
@@ -87,7 +89,7 @@
 
     "නෙමෙයි": ["nemai", "nemei", "neme", "nemay", "nemi", "nemey", "nmei", "nme", "nmae", "nemei", "nemaii", "nemayy", "nemei", "nmai", "neme", "nemay"],
     "තියෙනවා": ["thynwa", "thyenawa", "thynw", "thynawa", "thynwaa", "thyn", "thyen", "thynw", "thiyenawa", "thiyenwa", "thynwa", "thyenwa", "tynwa", "tenwa", "thynwaa", "thyenawa", "thynw", "thynawa", "thynwa", "thnwa", "tenawa", "thiyenawa", "thienawa", "thyenwaa", "thynwaa"],
-    "නෑ": ["nae", "ne", "naha", "næ", "naa", "na", "nè", "nha", "naeh", "nahe", "nə", "naa", "naee", "næ", "na", "naa", "ne", "nahe", "nah", "naha", "naee", "nae", "næe", "nè", "naa"],
+    "නෑ": ["nae", "ne", "naha", "nh", "naa", "na", "nè", "nha", "naeh", "nahe", "nə", "naa", "naee", "næ", "na", "naa", "ne", "nahe", "nah", "naha", "naee", "nae", "næe", "nè", "naa"],
     "මුදලට": ["mudalata", "mudhalata", "mudlta", "mudalta", "mudalt", "mudlata", "mudalat", "mudlta", "mudalt", "mudlata"],
     "පාඩු": ["padu", "paadu", "paduu", "paaduu", "pad", "paad"],
     "පාඩුයි": ["padui", "paadui", "paduy", "paaduy", "paduu", "paaduu", "pdui", "paadui"],

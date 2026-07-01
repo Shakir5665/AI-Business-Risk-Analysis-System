@@ -32,6 +32,15 @@ from configs.preprocessing_config import (
     MULTIPLE_EXCLAMATION_PATTERN,
     MULTIPLE_QUESTION_PATTERN,
     UNICODE_WHITESPACE_PATTERN,
+    # Dataset-specific patterns
+    BACKSLASH_PATTERN,
+    SQUARE_BRACKET_PATTERN,
+    QUOTE_PATTERN,
+   
+     # Dataset-specific options
+    REMOVE_BACKSLASHES,
+    REMOVE_SQUARE_BRACKETS,
+    REMOVE_QUOTES,
 )
 
 from src.utils.logger import logger
@@ -153,9 +162,23 @@ class TextCleaner:
 
         if REMOVE_EXTRA_WHITESPACE:
             text = WHITESPACE_PATTERN.sub(" ", text)
+        
+        # Remove backslashes
+        if REMOVE_BACKSLASHES:
+            text = BACKSLASH_PATTERN.sub(" ", text)
+
+        # Remove square brackets
+        if REMOVE_SQUARE_BRACKETS:
+            text = SQUARE_BRACKET_PATTERN.sub(" ", text)
+
+        # Remove quotes
+        if REMOVE_QUOTES:
+            text = QUOTE_PATTERN.sub(" ", text)
 
         return text.strip()
 
     def clean_batch(self, texts):
 
         return [self.clean(text) for text in texts]
+    
+     

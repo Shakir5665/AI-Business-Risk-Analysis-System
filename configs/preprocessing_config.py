@@ -35,6 +35,14 @@ KEEP_UNDERSCORE = True
 
 MAX_REPEATED_CHARACTERS = 2
 
+REMOVE_BACKSLASHES = True
+
+REMOVE_BRACKETS = True
+
+REMOVE_SQUARE_BRACKETS = True
+
+REMOVE_QUOTES = True
+
 
 # ==========================================================
 # Regex Patterns
@@ -88,3 +96,18 @@ REPEATED_CHARACTER_PATTERN = re.compile(
 UNICODE_WHITESPACE_PATTERN = re.compile(
     r"[\u2000-\u200B\u200E-\u200F\u2028-\u202F]"
 )
+
+
+# ==========================================================
+# Dataset-Specific Patterns
+# ==========================================================
+
+BACKSLASH_PATTERN = re.compile(r"\\")
+
+SQUARE_BRACKET_PATTERN = re.compile(r"[\[\]]")
+
+QUOTE_PATTERN = re.compile(r"[\'\"]")
+
+NESTED_STRUCTURE_PATTERN = re.compile(r"[\'\"\[\]\\]")
+
+EXTRA_SPACE_PATTERN = re.compile(r"\s+")
