@@ -11,7 +11,11 @@
     "great": ["gr8", "g8", "grt", "gret", "gr888", "greatt", "gr8t"],
     "good": ["gud", "gd", "g00d", "goood", "gudd", "guddd", "g0od"],
     "okay": ["oky", "okies", "okkk", "okie", "ok", "oki", "okee", "okiez", "k", "kk", "okey", "okiee", "okii"],
+    "fast" : ["past"],
     "sorry": ["sry", "soz", "sori", "sorey", "srry", "soorry", "sowwy", "sowy", "sryy"],
+    "item" : ["irems","irem"],
+    "packing" : ["paking"],
+    "Charge":["chj","carge","carg"],
     
     "මම": ["mama", "mam"],
     "මට": ["mata", "mat", "mta", "mataa", "mat"],
@@ -47,7 +51,7 @@
     "ගොඩක්": ["gdak", "godk", "godaak", "gdk", "godak", "goda", "godkk", "godakkk", "godxk", "g0dak", "godaq", "goddk", "godak", "godakk", "gdk", "godk", "g0dk", "godaakkk", "godkak"],
     "නියමයි": ["niym", "niymyi", "niymai", "niymy", "nym", "niyam", "niymy", "niymay", "nymy", "niymm", "niymaii", "niyamai", "nym", "niymai", "niymy", "niym", "niymyi", "niymm", "niymay", "niyam", "niymayy"],
     "සුපිරි": ["supri", "supir", "spri", "supri", "supr", "supiri", "suprii", "suprri", "superi", "supirii", "supri", "supir", "spr", "supr", "supriii", "supiri", "supir", "spiri", "supriy", "supiry"],
-    "Super": ["patta", "maroo", "ela", "pattaa", "pattt", "elaa", "elaaa", "pat", "el", "patt", "ell", "pattaa", "elaa", "patta", "el", "patt", "ela", "pattaaa", "maruuu", "elaaa", "pt", "e"],
+    "Super": ["patta", "maroo", "ela", "pattaa", "pattt", "elaa", "elaaa","Superb", "pat", "el", "patt", "ell", "pattaa", "elaa", "patta", "el", "patt", "ela", "pattaaa", "maruuu", "elaaa", "pt", "exlnt"],
     "absolute" : ["utter"],
     "මදි": ["madi", "madhi", "mathi", "mdi", "mady", "madii", "madhi", "mathii", "madhi", "mathi", "madi", "madi", "madhi", "mathi"],
     "වටිනවා": ["watinawa", "vatinawa", "wattinawa", "vattinawa", "watina", "vatina", "wattina", "vattina", "wtnwa", "vtnwa", "watinaw", "vatinaw", "wattinaw", "vattinaw", "wati", "vati", "wttnwa", "vttnwa", "wathinawa", "vathinawa"],
@@ -69,26 +73,34 @@
     "ආනේ": ["aney", "anee", "ane", "aneyy", "aneee", "anei", "aneyi", "an", "ae", "aneei", "aneyy", "aney", "anee", "ane", "aneee", "aneyy", "anei", "an", "ae", "anee", "aneyi", "aneey", "aney"],
     "එක": ["ek", "eka", "ekk", "ekaa", "eke", "ekkk", "ekk", "eek", "ekkka", "ekh", "ek", "eka", "ekk", "ek", "ekk", "eka", "ekaa", "ekke", "ekkk", "eeka", "ekk", "ekkh"],
     "කරලා": ["karala", "karalla", "karal", "krala", "kralla", "kral", "karalaa", "karallaa", "krla", "krlla", "karaala", "karalla", "karal", "karla", "karlaa", "karl"],
-    "මාරු": ["maaru", "maru", "mru", "maaruu", "maruu", "marr", "maaru", "maaroo", "maru", "māru", "maaru", "maaruu", "mru", "mar", "marr", "māruu"],
+    "මාරු": ["maaru", "maru", "mru", "maaruu", "maruu", "marr", "maaru", "maaroo", "maru", "māru", "maaru", "maaruu", "mru", "mar", "marr", "Gemmak"],
     "විතරයි": ["witharai", "vithara", "withtharai", "vithrai", "witherai", "wethrai", "withrai", "vitharai", "witharai", "vithrai", "withtharai", "wthrai", "vthrai", "wtharai", "vtharai", "withari", "vithari", "withrai", "vithrai", "wethrai", "witherai", "withharai"],
     "කරනවා": ["karanawa", "krnwa", "karnwa", "karanwa", "kranwa", "karanawa", "krnawa", "karnawa", "karanwaa", "krnwaa", "karanaw", "krnaw", "karanw", "krnw", "kranawa", "karnawa", "karanawa", "krnwa", "karnwa", "karanwa", "kranwa"],
     "වෙනවා": ["wenawa", "wenava", "venawa", "wenav", "venava", "venaw", "wnawa", "vnawa", "wenawa", "venawa", "wenawaa", "venawaa", "wenavaa", "venavaa", "wnava", "vnava", "wenawa", "venawa", "wenav", "venav"],
     "වෙන්නේ": ["wenne", "venne", "wene", "vene", "wenney", "venney", "wenneh", "venneh", "wenne", "venne", "wenn", "venn", "wene", "vene", "wennay", "vennay"],
+    "බහිනවා": ["bahinawa", "bahnwa", "bahinwa", "bahnawa", "bahinaw", "bahnw", "bahina", "bahna", "bhinawa", "bhnwa", "bhina", "bhn", "bahn"],
+
+
+
+
 
 
     "නෙමෙයි": ["nemai", "nemei", "neme", "nemay", "nemi", "nemey", "nmei", "nme", "nmae", "nemei", "nemaii", "nemayy", "nemei", "nmai", "neme", "nemay"],
     "තියෙනවා": ["thynwa", "thyenawa", "thynw", "thynawa", "thynwaa", "thyn", "thyen", "thynw", "thiyenawa", "thiyenwa", "thynwa", "thyenwa", "tynwa", "tenwa", "thynwaa", "thyenawa", "thynw", "thynawa", "thynwa", "thnwa", "tenawa", "thiyenawa", "thienawa", "thyenwaa", "thynwaa"],
-    "නෑ": ["nae", "ne", "naha", "næ", "naa", "na", "nè", "nae", "naeh", "nahe", "nə", "naa", "naee", "næ", "na", "naa", "ne", "nahe", "nah", "naha", "naee", "nae", "næe", "nè", "naa"],
-    
+    "නෑ": ["nae", "ne", "naha", "næ", "naa", "na", "nè", "nha", "naeh", "nahe", "nə", "naa", "naee", "næ", "na", "naa", "ne", "nahe", "nah", "naha", "naee", "nae", "næe", "nè", "naa"],
+    "මුදලට": ["mudalata", "mudhalata", "mudlta", "mudalta", "mudalt", "mudlata", "mudalat", "mudlta", "mudalt", "mudlata"],
+    "පාඩු": ["padu", "paadu", "paduu", "paaduu", "pad", "paad"],
+    "පාඩුයි": ["padui", "paadui", "paduy", "paaduy", "paduu", "paaduu", "pdui", "paadui"],
+    "පාඩු නැහැ": ["paadu neh", "padu neh", "paadu na", "padu na", "paadu naha", "padu naha", "paadu ne", "padu ne", "paadu næ", "padu næ","padunemai,padunemi"],
 
     "හිතනවා": ["hithuwa", "hithanawa", "hithuwe", "hithanawa", "hithnawa", "hithna", "hithnwa", "hithanuwa", "hithu", "hithaw", "hithn", "hithnaa", "hithanaw", "hithanwa", "hithnwaa", "hithuwaa", "hithnaawa", "hithnawa", "hithnwa", "hithnuwa", "hithanawa", "hithuwa", "hithuwe"],
-    "හොඳයි": ["hoda", "hodha", "hondaai", "hodaa", "hodai", "hodayi", "hondai", "honda", "hodaii", "hoday", "hodii", "hodi", "hodaaai", "hodaaii","hodhata", "hodaay", "hondaa", "hondaii", "hodayi", "hodhaa", "hodhi", "hondi", "hondy","hondhai","hondhay"],
+    "හොඳයි": ["hoda", "hodha", "hondaai", "hodaa", "hodai","hothai", "hodayi", "hondai", "honda", "hodaii", "hoday", "hodii", "hodi", "hodaaai", "hodaaii","hodhata", "hodaay", "hondaa", "hondaii", "hodayi", "hodhaa", "hodhi", "hondi", "hondy","hondhai","hondhay"],
     "නරකයි": ["naraka", "narak", "nraka", "narakai", "narakay", "nrakai", "narka", "narakii", "nrak", "narakaai", "narakaa", "nrk", "narak", "narakay", "narakai", "naraka", "nraka", "nrk", "narak", "narakii", "narakaai", "narakaa", "nraka", "nrk"],
     "අවුල්": ["awl","awul", "awul", "aul","awull", "awwl", "awulll", "awuul", "awul", "aawul", "awlu", "awul", "awul", "awull", "awwl", "awulll", "awuul", "awul", "aawul", "awlu", "awul", "awul", "awull"],
     "අවුලක්": ["awlak", "awlk", "awlaak", "awlakk", "awlak", "awllak", "awulak", "awlak", "awlk", "awlaak", "awlakk", "awllak", "awulak", "awlak", "awlk"],
     "ඉක්මන්": ["ikmn", "ikman", "ikmn", "ikmann", "ikmnn", "ikman", "ikmna", "ikmn", "ikman", "ikmnn", "ikm", "ikmin", "ikmn", "ikman", "ikmann", "ikmnn", "ikman", "ikmna", "ikmn", "ikman", "ikmnn"],
     "කරන්න": ["krnna", "kranna", "krn", "krnn", "krnna", "karnna", "krnnaa", "krnna", "krn", "kran", "krnna", "krnna", "krnnaa", "kranna", "krn", "krnn", "krnna", "karnna", "krnnaa", "krnna", "krn","karanne"],
-    "ගන්න": ["gnna", "gnn", "gagna", "gnnaa", "gnn", "ganna", "gnna", "gnn", "gnna", "gnna", "gann", "gnn", "gnna", "gnn", "gagna", "gnnaa", "ganna", "gnna", "gnn", "gnna"],
+    "ගන්න": ["gnna", "gagna","gna", "gnnaa", "gnn", "ganin","ganna","gannawa", "ghanna", "gnna", "gnna", "gann", "gnna", "gnn", "gagna", "gnnaa", "ganna", "gnna", "gnna"],
     "දෙන්න": ["dnna", "denn", "denna", "dnn", "dennn", "dnna", "denna", "dnna", "denn", "dnn", "denn", "dnnaa", "dnna", "denn", "denna", "dnn", "dennn", "dnna", "denna", "dnna"],
     "ලැබුණා": ["lebuna", "hambuna", "labuna", "lebun", "labun", "hambun", "lebunaa", "labunaa", "lebna", "labna", "hambna", "lebuni", "lebuna", "labuna", "hambuna", "lebun", "labun", "hambun", "lebunaa", "labunaa"],
     "ආවේ": ["awa", "evva", "ewwa", "awae", "aw", "avva", "eww", "ewwaa", "awaee", "awe", "evwa", "ewwa", "awa", "evva", "ewwa", "awae", "aw", "avva", "eww", "ewwaa"],
@@ -104,10 +116,15 @@
     "ඕන": ["one", "oni", "ona", "onee", "onii", "onaa", "one", "oni", "ona", "onee", "onii", "onaa", "on", "oen", "oene", "oena", "onei", "ony", "onni"],
     "එපා": ["epa", "eppa", "epaa", "ep", "epah", "eepaa", "eppa", "epaa", "epah", "eppaa", "epa", "eppa", "epaa", "ep", "epah", "epaa", "eppa", "ep", "eppa", "epaa", "epah"],
     "සල්ලි": ["salli", "sali", "sallii", "salli", "salliy", "sallu", "sall", "salii", "sally", "sallie", "salli", "sali", "sallii", "salliy", "sallu", "sall"],
+    "තමයි": ["thamai", "tamai", "thmy", "tmy", "thmai", "tamai", "thamai", "thami", "tame", "thama", "thamaa", "thma", "tma", "thmay", "tmay", "thamaii", "tamaii", "thm", "tm"],
+    "ඉතින්": ["ithin", "itin", "ithn", "itn", "ithin", "ithin", "ithn", "ithin", "itn", "ithin"],
+    "නැතුව": ["nathuwa", "nathuva", "nthuwa", "nethuwa", "nthuva", "nathu", "nthu", "natuwa", "natuwa"],
+    "තිබ්බ": ["thibba", "tibba", "thiba", "tiba", "thibb", "tibb", "thibaa", "tibaa", "thib", "tib", "thibbaa", "tibbaa", "thb", "tb"],
+    "තිබුණා": ["thibuna", "tibuna", "thibun", "tibun", "thibunaa", "tibunaa", "thibna", "tibna", "thibn", "tibn", "thbna", "tbna"],
 
 
     "delivery": ["dlvry", "dlivery", "delivary", "dalivery", "deliveri", "delivari", "daliveri", "dlv", "dly", "dlvy", "delvry", "dlvryy", "dilivery", "delivry", "dilvry", "dlvri", "dlvry", "delvry", "dlvry", "dely", "deliv", "dlvryy"],
-    "quality": ["qlty", "qualty", "quality", "qualiti", "quallity", "kwality", "kwaliti", "qulity", "qualty","qltyy", "qualti", "quallity", "qlty", "qlt", "quali", "qualiti", "qltyi", "qualtiy", "qulity", "qlty", "qualty", "qualti", "qltyy", "qlty", "qlt", "quali", "qulity"],
+    "quality": ["qlty", "qualty", "quality", "qualiti", "quallity", "kwality", "kwaliti","koliti", "qulity", "qualty","qltyy", "qualti","colty","colity", "quallity", "qlty", "qlt", "quali", "qualiti", "qltyi", "qualtiy", "qulity", "qlty", "qualty", "qualti", "qltyy", "qlty", "qlt", "quali", "qulity"],
     "product": ["prdct", "prd", "prod", "prdt", "prdctt", "prduct", "prdct", "pdt", "prdct", "prodct", "prdkt", "prdc", "prdct", "prd", "prod", "prdt", "prdctt", "prduct", "pdt", "prodct"],
     "seller": ["slr", "sellr", "selr", "slrr", "seler", "sllr", "selar", "slr", "seller", "selr", "slr", "sellr", "slr", "sellr", "selr", "slrr", "seler", "sllr", "selar", "slr"],
     "price": ["prce", "pric", "prc", "pryc", "prcee", "pricee", "prce", "prc", "pric", "prce", "price", "prcee", "prce", "pric", "prc", "pryc", "prcee", "pricee", "prce", "prc"],
