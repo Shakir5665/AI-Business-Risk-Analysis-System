@@ -14,7 +14,7 @@ models/checkpoints/
 
 # Large model files
 *.bin
-*.pt
+
 *.pth
 *.safetensors
 
