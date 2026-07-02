@@ -28,8 +28,6 @@ tensorboard
 
 tqdm
 
-emoji
-
 regex
 
 sentencepiece

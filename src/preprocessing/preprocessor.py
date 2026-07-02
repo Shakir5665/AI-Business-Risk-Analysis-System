@@ -12,7 +12,6 @@ from typing import List
 from src.utils.logger import logger
 
 from src.preprocessing.cleaner import TextCleaner
-from src.preprocessing.emoji_mapper import EmojiMapper
 from src.preprocessing.repeat_normalizer import RepeatNormalizer
 from src.preprocessing.srilankan_normalizer import SriLankanNormalizer
 
@@ -24,8 +23,6 @@ class ReviewPreprocessor:
         logger.info("Initializing ReviewPreprocessor...")
 
         self.cleaner = TextCleaner()
-
-        self.emoji_mapper = EmojiMapper()
 
         self.repeat = RepeatNormalizer()
 
@@ -41,8 +38,6 @@ class ReviewPreprocessor:
             return ""
 
         text = self.cleaner.clean(text)
-
-        text = self.emoji_mapper.convert_emojis_to_tokens(text)
 
         text = self.repeat.normalize(text)
 
