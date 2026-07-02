@@ -5,8 +5,9 @@ Runs complete model training.
 
 Project:
 AI-Powered Business Risk Analysis
-and Recommendation System
+and Recommendation System\
 """
+
 
 from src.dataset.dataset_loader import DatasetLoader
 

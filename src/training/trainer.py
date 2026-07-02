@@ -13,8 +13,11 @@ import torch.nn as nn
 
 from configs.training_config import (
     NUM_EPOCHS,
-    GRADIENT_CLIP
+    GRADIENT_CLIP,
+    EARLY_STOPPING
 )
+
+from src.training.early_stopping import EarlyStopping
 
 from src.training.losses import LossComputer
 from src.training.validator import Validator
@@ -55,6 +58,16 @@ class Trainer:
         self.validator = Validator()
 
         self.checkpoint_manager = CheckpointManager()
+
+        # -----------------------------
+        # Early Stopping
+        # -----------------------------
+
+        self.early_stopping = None
+
+        if EARLY_STOPPING:
+
+            self.early_stopping = EarlyStopping()
 
         self.num_epochs = NUM_EPOCHS
 
@@ -243,6 +256,26 @@ class Trainer:
             else:
 
                 best_saved = "NO"
+            
+            # -----------------------------
+            # Early Stopping
+            # -----------------------------
+
+            if self.early_stopping is not None:
+
+                if self.early_stopping.should_stop(validation_loss):
+
+                    print()
+
+                    print("=" * 60)
+
+                    print("Early Stopping Triggered")
+
+                    print(f"Training stopped at Epoch {epoch}")
+
+                    print("=" * 60)
+
+                    break
 
             # -----------------------------
             # Epoch Summary
