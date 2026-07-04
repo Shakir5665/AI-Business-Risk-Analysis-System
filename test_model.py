@@ -159,3 +159,33 @@ print(f"  Macro F1  : {results['aspect']['macro_f1']:.4f}")
 print()
 
 print("=" * 60)
+
+from src.evaluation.confusion_matrix import (
+    ConfusionMatrixGenerator
+)
+
+cm = ConfusionMatrixGenerator()
+
+cm.generate(
+
+    true_labels=results["targets"]["sentiment"].numpy(),
+
+    predicted_labels=results["predictions"]["sentiment"].numpy(),
+
+    class_names=[
+
+        "Negative",
+
+        "Neutral",
+
+        "Positive"
+
+    ],
+
+    save_path="outputs/figures/confusion_matrix.png"
+
+)
+
+print()
+
+print("Confusion matrix saved.")
