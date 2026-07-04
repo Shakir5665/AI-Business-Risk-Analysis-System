@@ -16,7 +16,7 @@ MODEL_NAME = "FacebookAI/xlm-roberta-base"
 # Tokenization
 # --------------------------------------------------
 
-MAX_SEQUENCE_LENGTH = 128
+MAX_SEQUENCE_LENGTH = 256
 
 # --------------------------------------------------
 # XLM-R Architecture
