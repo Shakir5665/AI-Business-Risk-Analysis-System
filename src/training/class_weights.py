@@ -12,7 +12,9 @@ and Recommendation System
 """
 
 from collections import Counter
+from ast import literal_eval
 
+import pandas as pd
 import torch
 
 from src.utils.logger import logger
@@ -20,8 +22,8 @@ from src.utils.logger import logger
 
 class ClassWeightCalculator:
     """
-    Computes class weights automatically
-    from the training dataset.
+    Computes class weights directly
+    from the training DataFrame.
     """
 
     def __init__(self):
@@ -34,35 +36,37 @@ class ClassWeightCalculator:
 
     def sentiment_weights(
         self,
-        dataset
+        dataframe: pd.DataFrame
     ) -> torch.Tensor:
         """
         Computes weights for CrossEntropyLoss.
         """
 
-        labels = []
-
-        for sample in dataset:
-
-            labels.append(
-                int(sample["sentiment"])
-            )
+        labels = dataframe["sentiment"].tolist()
 
         counts = Counter(labels)
 
+        sentiment_order = [
+
+            "Negative",
+            "Neutral",
+            "Positive"
+
+        ]
+
         total = len(labels)
 
-        num_classes = len(counts)
+        num_classes = len(sentiment_order)
 
         weights = []
 
-        for i in range(num_classes):
+        for label in sentiment_order:
 
             weight = total / (
 
                 num_classes *
 
-                counts[i]
+                counts[label]
 
             )
 
@@ -88,33 +92,44 @@ class ClassWeightCalculator:
 
     def aspect_pos_weights(
         self,
-        dataset
+        dataframe: pd.DataFrame
     ) -> torch.Tensor:
         """
         Computes pos_weight for BCEWithLogitsLoss.
         """
 
-        aspect_matrix = []
+        aspect_order = [
 
-        for sample in dataset:
+            "Delivery",
+            "Quality",
+            "Trust"
 
-            aspect_matrix.append(
+        ]
 
-                sample["aspects"]
+        positives = torch.zeros(
 
-            )
-
-        aspect_matrix = torch.tensor(
-
-            aspect_matrix,
+            len(aspect_order),
 
             dtype=torch.float
 
         )
 
-        positives = aspect_matrix.sum(dim=0)
+        total_samples = len(dataframe)
 
-        negatives = len(dataset) - positives
+        for aspects in dataframe["aspects"]:
+
+            # Handles JSON strings if needed
+            if isinstance(aspects, str):
+
+                aspects = literal_eval(aspects)
+
+            for i, aspect in enumerate(aspect_order):
+
+                if aspect in aspects:
+
+                    positives[i] += 1
+
+        negatives = total_samples - positives
 
         pos_weight = negatives / positives
 
