@@ -88,6 +88,8 @@ validation_dataset = BusinessRiskDataset(
 # Compute Class Weights
 # --------------------------------------------------
 
+class_weight_calculator = ClassWeightCalculator()
+
 sentiment_weights = class_weight_calculator.sentiment_weights(
     train_df
 ).to(device)
