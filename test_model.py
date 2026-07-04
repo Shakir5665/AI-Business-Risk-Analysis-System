@@ -28,6 +28,14 @@ from src.evaluation.evaluator import Evaluator
 
 from src.utils.device import get_device
 
+from src.evaluation.confusion_matrix import (
+    ConfusionMatrixGenerator
+)
+
+from src.evaluation.classification_report import (
+    ClassificationReportGenerator
+)
+
 # --------------------------------------------------
 # Device
 # --------------------------------------------------
@@ -160,9 +168,7 @@ print()
 
 print("=" * 60)
 
-from src.evaluation.confusion_matrix import (
-    ConfusionMatrixGenerator
-)
+
 
 cm = ConfusionMatrixGenerator()
 
@@ -189,3 +195,35 @@ cm.generate(
 print()
 
 print("Confusion matrix saved.")
+
+report_generator = ClassificationReportGenerator()
+
+report = report_generator.generate(
+
+    true_labels=results["targets"]["sentiment"].numpy(),
+
+    predicted_labels=results["predictions"]["sentiment"].numpy(),
+
+    class_names=[
+
+        "Negative",
+
+        "Neutral",
+
+        "Positive"
+
+    ],
+
+    save_path="outputs/reports/classification_report.txt"
+
+)
+
+print()
+
+print("=" * 60)
+
+print("CLASSIFICATION REPORT")
+
+print("=" * 60)
+
+print(report)
