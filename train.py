@@ -33,6 +33,10 @@ from src.utils.device import get_device
 
 from configs.training_config import NUM_EPOCHS
 
+from src.training.class_weights import ClassWeightCalculator
+
+from src.training.losses import LossComputer
+
 
 # --------------------------------------------------
 # Device
@@ -79,6 +83,35 @@ validation_dataset = BusinessRiskDataset(
     aspect_encoder=aspect_encoder
 
 )
+
+# --------------------------------------------------
+# Compute Class Weights
+# --------------------------------------------------
+
+class_weight_calculator = ClassWeightCalculator()
+
+sentiment_weights = class_weight_calculator.sentiment_weights(
+    train_dataset
+).to(device)
+
+aspect_pos_weights = class_weight_calculator.aspect_pos_weights(
+    train_dataset
+).to(device)
+
+
+# --------------------------------------------------
+# Loss Function
+# --------------------------------------------------
+
+loss_computer = LossComputer(
+
+    sentiment_weights=sentiment_weights,
+
+    aspect_pos_weights=aspect_pos_weights
+
+)
+
+
 
 # --------------------------------------------------
 # DataLoaders
@@ -140,6 +173,12 @@ scheduler = SchedulerFactory.create(
 
 )
 
+print("\nSentiment Weights")
+print(sentiment_weights)
+
+print("\nAspect Positive Weights")
+print(aspect_pos_weights)
+
 # --------------------------------------------------
 # Trainer
 # --------------------------------------------------
@@ -156,7 +195,10 @@ trainer = Trainer(
 
     scheduler=scheduler,
 
+    loss_computer=loss_computer,
+
     device=device
+
 
 )
 

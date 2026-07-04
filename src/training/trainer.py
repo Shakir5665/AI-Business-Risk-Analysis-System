@@ -38,6 +38,7 @@ class Trainer:
         validation_loader,
         optimizer,
         scheduler,
+        loss_computer,
         device
     ):
 
@@ -53,7 +54,7 @@ class Trainer:
 
         self.device = device
 
-        self.loss_computer = LossComputer()
+        self.loss_computer = loss_computer
 
         self.validator = Validator()
 

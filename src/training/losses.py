@@ -26,11 +26,19 @@ class LossComputer:
     - Total Loss
     """
 
-    def __init__(self):
+    def __init__(
+        self,
+        sentiment_weights: torch.Tensor = None,
+        aspect_pos_weights: torch.Tensor = None
+    ):
 
-        self.sentiment_loss = nn.CrossEntropyLoss()
+        self.sentiment_loss = nn.CrossEntropyLoss(
+            weight=sentiment_weights
+        )
 
-        self.aspect_loss = nn.BCEWithLogitsLoss()
+        self.aspect_loss = nn.BCEWithLogitsLoss(
+            pos_weight=aspect_pos_weights
+        )
 
         logger.info("LossComputer initialized.")
 
