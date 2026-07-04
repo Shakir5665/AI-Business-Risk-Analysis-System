@@ -22,7 +22,6 @@ from src.utils.logger import logger
 
 
 class CheckpointManager:
-
     """
     Saves and loads checkpoints.
     """
@@ -116,80 +115,77 @@ class CheckpointManager:
 
     # --------------------------------------------------
 
-    # --------------------------------------------------
-
-def load(
-    self,
-    path,
-    model,
-    optimizer=None,
-    scheduler=None
-):
-
-    checkpoint = torch.load(
-
+    def load(
+        self,
         path,
+        model,
+        optimizer=None,
+        scheduler=None
+    ):
 
-        map_location="cpu"
+        checkpoint = torch.load(
 
-    )
+            path,
 
-    model.load_state_dict(
-
-        checkpoint["model_state_dict"]
-
-    )
-
-    if optimizer is not None:
-
-        optimizer.load_state_dict(
-
-            checkpoint["optimizer_state_dict"]
+            map_location="cpu"
 
         )
 
-    if scheduler is not None:
+        model.load_state_dict(
 
-        scheduler.load_state_dict(
-
-            checkpoint["scheduler_state_dict"]
+            checkpoint["model_state_dict"]
 
         )
 
-    logger.info(
-        f"Checkpoint loaded: {path}"
-    )
+        if optimizer is not None:
 
-    return checkpoint
+            optimizer.load_state_dict(
 
+                checkpoint["optimizer_state_dict"]
 
-# --------------------------------------------------
+            )
 
-def load_latest(
-    self,
-    model,
-    optimizer=None,
-    scheduler=None
-):
+        if scheduler is not None:
 
-    path = self.checkpoint_dir / LATEST_CHECKPOINT_NAME
+            scheduler.load_state_dict(
 
-    if not path.exists():
+                checkpoint["scheduler_state_dict"]
+
+            )
 
         logger.info(
-            "No latest checkpoint found."
+            f"Checkpoint loaded: {path}"
         )
 
-        return None
+        return checkpoint
 
-    return self.load(
+    # --------------------------------------------------
 
-        path=path,
+    def load_latest(
+        self,
+        model,
+        optimizer=None,
+        scheduler=None
+    ):
 
-        model=model,
+        path = self.checkpoint_dir / LATEST_CHECKPOINT_NAME
 
-        optimizer=optimizer,
+        if not path.exists():
 
-        scheduler=scheduler
+            logger.info(
+                "No latest checkpoint found."
+            )
 
-    )
+            return None
+
+        return self.load(
+
+            path=path,
+
+            model=model,
+
+            optimizer=optimizer,
+
+            scheduler=scheduler
+
+        )
