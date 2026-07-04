@@ -17,6 +17,7 @@ from ast import literal_eval
 import pandas as pd
 import torch
 
+from configs.model_labels import SENTIMENT_LABELS, ASPECT_LABELS
 from src.utils.logger import logger
 
 
@@ -46,13 +47,7 @@ class ClassWeightCalculator:
 
         counts = Counter(labels)
 
-        sentiment_order = [
-
-            "Negative",
-            "Neutral",
-            "Positive"
-
-        ]
+        sentiment_order = SENTIMENT_LABELS
 
         total = len(labels)
 
@@ -98,13 +93,7 @@ class ClassWeightCalculator:
         Computes pos_weight for BCEWithLogitsLoss.
         """
 
-        aspect_order = [
-
-            "Delivery",
-            "Quality",
-            "Trust"
-
-        ]
+        aspect_order = ASPECT_LABELS
 
         positives = torch.zeros(
 

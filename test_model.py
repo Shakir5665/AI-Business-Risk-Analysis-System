@@ -246,11 +246,11 @@ report = aspect_report.generate(
 
     target_names=[
 
-        "Delivery",
-
         "Quality",
 
-        "Trust"
+        "Trust",
+
+        "Delivery"
 
     ],
 
@@ -278,11 +278,11 @@ aspect_cm.generate(
 
     aspect_names=[
 
-        "Delivery",
-
         "Quality",
 
-        "Trust"
+        "Trust",
+
+        "Delivery"
 
     ],
 
