@@ -116,46 +116,80 @@ class CheckpointManager:
 
     # --------------------------------------------------
 
-    def load(
-        self,
+    # --------------------------------------------------
+
+def load(
+    self,
+    path,
+    model,
+    optimizer=None,
+    scheduler=None
+):
+
+    checkpoint = torch.load(
+
         path,
-        model,
-        optimizer=None,
-        scheduler=None
-    ):
 
-        checkpoint = torch.load(
+        map_location="cpu"
 
-            path,
+    )
 
-            map_location="cpu"
+    model.load_state_dict(
+
+        checkpoint["model_state_dict"]
+
+    )
+
+    if optimizer is not None:
+
+        optimizer.load_state_dict(
+
+            checkpoint["optimizer_state_dict"]
 
         )
 
-        model.load_state_dict(
+    if scheduler is not None:
 
-            checkpoint["model_state_dict"]
+        scheduler.load_state_dict(
+
+            checkpoint["scheduler_state_dict"]
 
         )
 
-        if optimizer is not None:
+    logger.info(
+        f"Checkpoint loaded: {path}"
+    )
 
-            optimizer.load_state_dict(
+    return checkpoint
 
-                checkpoint["optimizer_state_dict"]
 
-            )
+# --------------------------------------------------
 
-        if scheduler is not None:
+def load_latest(
+    self,
+    model,
+    optimizer=None,
+    scheduler=None
+):
 
-            scheduler.load_state_dict(
+    path = self.checkpoint_dir / LATEST_CHECKPOINT_NAME
 
-                checkpoint["scheduler_state_dict"]
-
-            )
+    if not path.exists():
 
         logger.info(
-            f"Checkpoint loaded: {path}"
+            "No latest checkpoint found."
         )
 
-        return checkpoint
+        return None
+
+    return self.load(
+
+        path=path,
+
+        model=model,
+
+        optimizer=optimizer,
+
+        scheduler=scheduler
+
+    )

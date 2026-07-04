@@ -202,6 +202,48 @@ trainer = Trainer(
 
 )
 
+
+# --------------------------------------------------
+# Resume Training
+# --------------------------------------------------
+
+checkpoint = trainer.checkpoint_manager.load_latest(
+
+    model=model,
+
+    optimizer=optimizer,
+
+    scheduler=scheduler
+
+)
+
+if checkpoint is not None:
+
+    trainer.start_epoch = checkpoint["epoch"] + 1
+
+    trainer.best_validation_loss = checkpoint.get(
+
+        "validation_loss",
+
+        float("inf")
+
+    )
+
+    print()
+
+    print("=" * 60)
+
+    print(
+
+        f"Resuming Training From Epoch "
+
+        f"{trainer.start_epoch}"
+
+    )
+
+    print("=" * 60)
+
+    
 # --------------------------------------------------
 # Start Training
 # --------------------------------------------------

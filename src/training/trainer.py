@@ -60,6 +60,8 @@ class Trainer:
 
         self.checkpoint_manager = CheckpointManager()
 
+        self.start_epoch = 1
+
         # -----------------------------
         # Early Stopping
         # -----------------------------
@@ -182,7 +184,7 @@ class Trainer:
 
         logger.info("Training started.")
 
-        for epoch in range(1, self.num_epochs + 1):
+        for epoch in range(self.start_epoch, self.num_epochs + 1):
 
             print()
 
