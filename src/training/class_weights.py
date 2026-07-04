@@ -100,7 +100,7 @@ class ClassWeightCalculator:
 
             aspect_matrix.append(
 
-                sample["aspect"]
+                sample["aspects"]
 
             )
 
