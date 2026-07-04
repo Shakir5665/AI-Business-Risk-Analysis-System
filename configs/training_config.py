@@ -45,7 +45,7 @@ SHUFFLE_TEST = False
 
 BATCH_SIZE = 32
 
-NUM_EPOCHS = 50
+NUM_EPOCHS = 100
 
 # --------------------------------------------------
 # Optimizer
@@ -84,6 +84,6 @@ LATEST_CHECKPOINT_NAME = "latest_checkpoint.pt"
 
 EARLY_STOPPING = True
 
-EARLY_STOPPING_PATIENCE = 3
+EARLY_STOPPING_PATIENCE = 10
 
-MIN_DELTA = 0.0
+MIN_DELTA = 0.001
