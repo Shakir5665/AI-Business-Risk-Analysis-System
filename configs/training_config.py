@@ -45,7 +45,7 @@ SHUFFLE_TEST = False
 
 BATCH_SIZE = 32
 
-NUM_EPOCHS = 12
+NUM_EPOCHS = 25
 
 # --------------------------------------------------
 # Optimizer
