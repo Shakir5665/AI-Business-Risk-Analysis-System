@@ -36,6 +36,14 @@ from src.evaluation.classification_report import (
     ClassificationReportGenerator
 )
 
+from src.evaluation.aspect_classification_report import (
+    AspectClassificationReportGenerator
+)
+
+from src.evaluation.aspect_confusion_matrix import (
+    AspectConfusionMatrixGenerator
+)
+
 # --------------------------------------------------
 # Device
 # --------------------------------------------------
@@ -227,3 +235,61 @@ print("CLASSIFICATION REPORT")
 print("=" * 60)
 
 print(report)
+
+aspect_report = AspectClassificationReportGenerator()
+
+report = aspect_report.generate(
+
+    true_labels=results["targets"]["aspect"].numpy(),
+
+    predicted_labels=results["predictions"]["aspect"].numpy(),
+
+    target_names=[
+
+        "Delivery",
+
+        "Quality",
+
+        "Trust"
+
+    ],
+
+    save_path="outputs/reports/aspect_classification_report.txt"
+
+)
+
+print()
+
+print("="*60)
+
+print("ASPECT CLASSIFICATION REPORT")
+
+print("="*60)
+
+print(report)
+
+aspect_cm = AspectConfusionMatrixGenerator()
+
+aspect_cm.generate(
+
+    true_labels=results["targets"]["aspect"].numpy(),
+
+    predicted_labels=results["predictions"]["aspect"].numpy(),
+
+    aspect_names=[
+
+        "Delivery",
+
+        "Quality",
+
+        "Trust"
+
+    ],
+
+    output_directory="outputs/figures"
+
+)
+
+print()
+
+print("Aspect confusion matrices saved.")
