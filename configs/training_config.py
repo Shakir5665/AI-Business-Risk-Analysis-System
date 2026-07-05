@@ -43,15 +43,15 @@ SHUFFLE_TEST = False
 # Training
 # --------------------------------------------------
 
-BATCH_SIZE = 32
+BATCH_SIZE = 64
 
-NUM_EPOCHS = 100
+NUM_EPOCHS = 50
 
 # --------------------------------------------------
 # Optimizer
 # --------------------------------------------------
 
-LEARNING_RATE = 2e-5
+LEARNING_RATE = 5e-5
 
 WEIGHT_DECAY = 0.01
 
@@ -84,6 +84,6 @@ LATEST_CHECKPOINT_NAME = "latest_checkpoint.pt"
 
 EARLY_STOPPING = True
 
-EARLY_STOPPING_PATIENCE = 10
+EARLY_STOPPING_PATIENCE = 5
 
 MIN_DELTA = 0.001

@@ -1,0 +1,15 @@
+Parameter                 Old Value       New Value   
+
+ADAPTER_DIM                  128            128   
+
+CLASSIFIER_DROPOUT           0.3            0.1
+
+LEARNING_RATE	             2e-5	        5e-5	
+
+EARLY_STOPPING_PATIENCE	     10	             5	
+
+NUM_EPOCHS	                 100	         50
+
+MAX_SEQUENCE_LENGTH          216             512
+
+BATCH_SIZE                   32               64
