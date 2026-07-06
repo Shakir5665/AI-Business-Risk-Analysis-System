@@ -129,6 +129,20 @@ class CheckpointManager:
             f"Latest checkpoint saved: {path}"
         )
 
+        # Copy to Google Drive if accessible (e.g. in Google Colab)
+        try:
+            gdrive_dir = Path(GDRIVE_CHECKPOINT_DIR)
+            gdrive_dir.mkdir(parents=True, exist_ok=True)
+            gdrive_path = gdrive_dir / LATEST_CHECKPOINT_NAME
+            shutil.copy2(path, gdrive_path)
+            logger.info(
+                f"Latest checkpoint successfully copied to Google Drive: {gdrive_path}"
+            )
+        except Exception as e:
+            logger.warning(
+                f"Could not save latest checkpoint to Google Drive: {e}"
+            )
+
     # --------------------------------------------------
 
     def load(
@@ -185,6 +199,20 @@ class CheckpointManager:
     ):
 
         path = self.checkpoint_dir / LATEST_CHECKPOINT_NAME
+
+        if not path.exists():
+            # Try to copy from Google Drive if local doesn't exist
+            try:
+                gdrive_path = Path(GDRIVE_CHECKPOINT_DIR) / LATEST_CHECKPOINT_NAME
+                if gdrive_path.exists():
+                    logger.info(
+                        f"Local checkpoint not found. Copying latest checkpoint from Google Drive: {gdrive_path}"
+                    )
+                    shutil.copy2(gdrive_path, path)
+            except Exception as e:
+                logger.warning(
+                    f"Could not copy latest checkpoint from Google Drive: {e}"
+                )
 
         if not path.exists():
 
