@@ -78,6 +78,8 @@ BEST_MODEL_NAME = "best_model.pt"
 
 LATEST_CHECKPOINT_NAME = "latest_checkpoint.pt"   
 
+GDRIVE_CHECKPOINT_DIR = "/content/drive/MyDrive/AI-Business-Risk-Analysis-System/checkpoints"
+
 # --------------------------------------------------
 # Early Stopping
 # --------------------------------------------------

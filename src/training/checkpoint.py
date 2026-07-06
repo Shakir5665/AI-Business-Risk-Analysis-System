@@ -9,13 +9,15 @@ and Recommendation System
 """
 
 from pathlib import Path
+import shutil
 
 import torch
 
 from configs.training_config import (
     CHECKPOINT_DIR,
     BEST_MODEL_NAME,
-    LATEST_CHECKPOINT_NAME
+    LATEST_CHECKPOINT_NAME,
+    GDRIVE_CHECKPOINT_DIR
 )
 
 from src.utils.logger import logger
@@ -78,6 +80,20 @@ class CheckpointManager:
         logger.info(
             f"Best model saved: {path}"
         )
+
+        # Copy to Google Drive if accessible (e.g. in Google Colab)
+        try:
+            gdrive_dir = Path(GDRIVE_CHECKPOINT_DIR)
+            gdrive_dir.mkdir(parents=True, exist_ok=True)
+            gdrive_path = gdrive_dir / BEST_MODEL_NAME
+            shutil.copy2(path, gdrive_path)
+            logger.info(
+                f"Best model successfully copied to Google Drive: {gdrive_path}"
+            )
+        except Exception as e:
+            logger.warning(
+                f"Could not save best model to Google Drive: {e}"
+            )
 
     # --------------------------------------------------
 
