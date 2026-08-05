@@ -2,7 +2,7 @@
 ## AI-Powered Business Risk Analysis and Recommendation System
 
 ---
-
+ 
 ### Overview of Research Component Architecture
 
 The research component of the project focuses on formulating sentiment classification and aspect category identification from customer reviews as an end-to-end multi-task multi-label deep learning research model. 
