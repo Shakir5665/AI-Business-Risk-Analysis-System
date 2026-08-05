@@ -96,6 +96,29 @@ class Trainer:
         }
 
         logger.info("Trainer initialized.")
+
+    def load_history(self):
+        history_paths = [
+            Path("outputs/reports/history.json"),
+            Path("checkpoints/history.json"),
+            Path("/content/drive/MyDrive/AI-Business-Risk-Analysis-System/checkpoints/history.json"),
+            Path("/content/drive/MyDrive/AI-Business-Risk-Analysis-System/outputs/reports/history.json")
+        ]
+        for hp in history_paths:
+            if hp.exists():
+                try:
+                    with open(hp, "r") as f:
+                        loaded = json.load(f)
+                        if isinstance(loaded, dict) and "epochs" in loaded:
+                            # Trim any entries >= start_epoch to avoid duplicates
+                            valid_indices = [i for i, ep in enumerate(loaded["epochs"]) if ep < self.start_epoch]
+                            for k in self.history.keys():
+                                if k in loaded:
+                                    self.history[k] = [loaded[k][i] for i in valid_indices if i < len(loaded[k])]
+                            logger.info(f"Loaded existing training history up to Epoch {self.start_epoch - 1} from {hp}")
+                            break
+                except Exception as e:
+                    logger.warning(f"Could not load history from {hp}: {e}")
     
         # --------------------------------------------------
 
@@ -360,11 +383,19 @@ class Trainer:
             self.history["val_aspect_micro_f1"].append(validation_results['aspect']['micro_f1'])
             self.history["val_aspect_macro_f1"].append(validation_results['aspect']['macro_f1'])
 
-            for target_path in ["outputs/reports/history.json", "checkpoints/history.json"]:
-                p = Path(target_path)
-                p.parent.mkdir(parents=True, exist_ok=True)
-                with open(p, "w") as f:
-                    json.dump(self.history, f, indent=2)
+            for target_path in [
+                "outputs/reports/history.json",
+                "checkpoints/history.json",
+                "/content/drive/MyDrive/AI-Business-Risk-Analysis-System/checkpoints/history.json",
+                "/content/drive/MyDrive/AI-Business-Risk-Analysis-System/outputs/reports/history.json"
+            ]:
+                try:
+                    p = Path(target_path)
+                    p.parent.mkdir(parents=True, exist_ok=True)
+                    with open(p, "w") as f:
+                        json.dump(self.history, f, indent=2)
+                except Exception:
+                    pass
 
         logger.info("Training completed.")
     

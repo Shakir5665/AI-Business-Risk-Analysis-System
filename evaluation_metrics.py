@@ -351,14 +351,19 @@ def run_complete_evaluation():
     print("\n[5/5] Processing Training History, Early Stopping & Benchmarks...")
 
     # Load or load fallback history
-    history_file = Path("outputs/reports/history.json")
-    if not history_file.exists():
-        history_file = Path("checkpoints/history.json")
-
+    history_paths = [
+        Path("outputs/reports/history.json"),
+        Path("checkpoints/history.json"),
+        Path("/content/drive/MyDrive/AI-Business-Risk-Analysis-System/checkpoints/history.json"),
+        Path("/content/drive/MyDrive/AI-Business-Risk-Analysis-System/outputs/reports/history.json")
+    ]
     history_data = None
-    if history_file.exists():
-        with open(history_file, "r") as f:
-            history_data = json.load(f)
+    for hp in history_paths:
+        if hp.exists():
+            with open(hp, "r") as f:
+                history_data = json.load(f)
+            print(f"  └─ Loaded training history from: {hp}")
+            break
 
     # --- Item 1, 7, 8, 9: History, Loss, Early Stopping & Learning Curves ---
     if history_data is not None:
