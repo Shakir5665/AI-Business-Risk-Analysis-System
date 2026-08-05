@@ -12,6 +12,7 @@ Outputs:
 """
 
 import json
+import shutil
 import time
 from pathlib import Path
 import matplotlib.pyplot as plt
@@ -442,10 +443,32 @@ def run_complete_evaluation():
     with open(OUTPUT_REP_DIR / "benchmark_results.txt", "w") as f:
         f.write(benchmark_str)
 
+    # Automatically copy outputs to Google Drive if mounted in Colab
+    gdrive_base = Path("/content/drive/MyDrive/AI-Business-Risk-Analysis-System/outputs")
+    try:
+        if Path("/content/drive/MyDrive").exists():
+            print("\n[+] Google Drive detected! Syncing outputs to Google Drive...")
+            gdrive_fig_dir = gdrive_base / "figures"
+            gdrive_rep_dir = gdrive_base / "reports"
+            gdrive_fig_dir.mkdir(parents=True, exist_ok=True)
+            gdrive_rep_dir.mkdir(parents=True, exist_ok=True)
+
+            for fig_file in OUTPUT_FIG_DIR.glob("*.png"):
+                shutil.copy2(fig_file, gdrive_fig_dir / fig_file.name)
+            for rep_file in OUTPUT_REP_DIR.glob("*"):
+                if rep_file.is_file():
+                    shutil.copy2(rep_file, gdrive_rep_dir / rep_file.name)
+
+            print(f"  └─ Successfully saved all outputs to Google Drive: {gdrive_base}")
+    except Exception as e:
+        print(f"  [!] Note: Could not sync to Google Drive: {e}")
+
     print("\n" + "=" * 70)
     print("  SUCCESS: ALL 13 RESEARCH FIGURES AND REPORTS GENERATED SUCCESSFULLY!")
-    print(f"  └─ Figures Path: {OUTPUT_FIG_DIR.resolve()}")
-    print(f"  └─ Reports Path: {OUTPUT_REP_DIR.resolve()}")
+    print(f"  └─ Local Figures Path : {OUTPUT_FIG_DIR.resolve()}")
+    print(f"  └─ Local Reports Path : {OUTPUT_REP_DIR.resolve()}")
+    if Path("/content/drive/MyDrive").exists():
+        print(f"  └─ Google Drive Path  : {gdrive_base.resolve()}")
     print("=" * 70)
 
 
