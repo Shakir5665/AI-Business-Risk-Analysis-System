@@ -3,7 +3,7 @@
 
 ---
 
-### Executive Summary & Research System Overview  Shakir
+### Executive Summary & Research System Overview 
 
 This technical report details the machine learning research architecture for the **AI-Powered Business Risk Analysis and Recommendation System**. Designed for multilingual e-commerce marketplaces (e.g., Daraz) and social commerce platforms (Facebook, Instagram, WhatsApp) operating in Sri Lanka and regional South Asian markets, the research component formulates text comprehension as a **joint multi-task multi-label deep learning model**:
 
