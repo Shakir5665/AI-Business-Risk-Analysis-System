@@ -16,6 +16,7 @@ import time
 from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 import torch
 import torch.nn.functional as F
 from sklearn.metrics import (
@@ -76,8 +77,10 @@ def run_complete_evaluation():
     # =========================================================================
     print("\n[1/5] Loading Datasets and Computing Dataset Statistics...")
     loader = DatasetLoader()
-    full_df = loader.load_all()
+    train_df = loader.load_train()
+    val_df = loader.load_validation()
     test_df = loader.load_test()
+    full_df = pd.concat([train_df, val_df, test_df], ignore_index=True)
 
     # Convert full_df to list of dicts for DatasetStatistics
     full_records = full_df.to_dict(orient="records")
