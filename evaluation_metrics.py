@@ -253,7 +253,7 @@ def run_complete_evaluation():
     print("  └─ Generating Item 2b: Aspect Confusion Matrices...")
     fig, axes = plt.subplots(1, 3, figsize=(15, 4.5))
     for i, asp_name in enumerate(aspect_classes):
-        cm_asp = confusion_matrix(asp_targets[:, i], asp_preds[:, i])
+        cm_asp = confusion_matrix(asp_targets[:, i], asp_preds[:, i], labels=[0, 1])
         disp_asp = ConfusionMatrixDisplay(confusion_matrix=cm_asp, display_labels=["No", "Yes"])
         disp_asp.plot(cmap="Blues", ax=axes[i], colorbar=False)
         axes[i].set_title(f"{asp_name} Aspect Confusion Matrix")
