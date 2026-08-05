@@ -8,6 +8,9 @@ AI-Powered Business Risk Analysis
 and Recommendation System
 """
 
+import json
+from pathlib import Path
+
 import torch
 import torch.nn as nn
 
@@ -77,6 +80,20 @@ class Trainer:
         self.gradient_clip = GRADIENT_CLIP
 
         self.best_validation_loss = float("inf")
+
+        self.history = {
+            "epochs": [],
+            "train_loss_sentiment": [],
+            "train_loss_aspect": [],
+            "train_loss_total": [],
+            "val_loss_sentiment": [],
+            "val_loss_aspect": [],
+            "val_loss_total": [],
+            "val_sentiment_acc": [],
+            "val_sentiment_f1": [],
+            "val_aspect_micro_f1": [],
+            "val_aspect_macro_f1": []
+        }
 
         logger.info("Trainer initialized.")
     
@@ -327,6 +344,27 @@ class Trainer:
             print()
 
             print(f"Best Model Saved : {best_saved}")
+
+            # -----------------------------
+            # Save Training History
+            # -----------------------------
+            self.history["epochs"].append(epoch)
+            self.history["train_loss_sentiment"].append(train_loss['sentiment'])
+            self.history["train_loss_aspect"].append(train_loss['aspect'])
+            self.history["train_loss_total"].append(train_loss['total'])
+            self.history["val_loss_sentiment"].append(validation_results['loss']['sentiment'])
+            self.history["val_loss_aspect"].append(validation_results['loss']['aspect'])
+            self.history["val_loss_total"].append(validation_results['loss']['total'])
+            self.history["val_sentiment_acc"].append(validation_results['sentiment']['accuracy'])
+            self.history["val_sentiment_f1"].append(validation_results['sentiment']['f1'])
+            self.history["val_aspect_micro_f1"].append(validation_results['aspect']['micro_f1'])
+            self.history["val_aspect_macro_f1"].append(validation_results['aspect']['macro_f1'])
+
+            for target_path in ["outputs/reports/history.json", "checkpoints/history.json"]:
+                p = Path(target_path)
+                p.parent.mkdir(parents=True, exist_ok=True)
+                with open(p, "w") as f:
+                    json.dump(self.history, f, indent=2)
 
         logger.info("Training completed.")
     
