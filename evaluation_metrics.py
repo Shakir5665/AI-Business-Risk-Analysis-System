@@ -116,7 +116,7 @@ def run_complete_evaluation():
     asp_labels = [k.capitalize() for k in aspect_dist.keys()]
     asp_counts = list(aspect_dist.values())
     bars = ax.bar(asp_labels, asp_counts, color="#3498db", edgecolor="black", alpha=0.85)
-    ax.set_title("Aspect Risk Occurrences Distribution")
+    ax.set_title("Aspect Occurrences Distribution")
     ax.set_xlabel("Aspect Category")
     ax.set_ylabel("Occurrence Count")
     for bar in bars:
@@ -249,6 +249,18 @@ def run_complete_evaluation():
     plt.savefig(OUTPUT_FIG_DIR / "confusion_matrix.png", dpi=300)
     plt.close()
 
+    # --- Item 2b: Aspect Binary Confusion Matrices ---
+    print("  └─ Generating Item 2b: Aspect Confusion Matrices...")
+    fig, axes = plt.subplots(1, 3, figsize=(15, 4.5))
+    for i, asp_name in enumerate(aspect_classes):
+        cm_asp = confusion_matrix(asp_targets[:, i], asp_preds[:, i])
+        disp_asp = ConfusionMatrixDisplay(confusion_matrix=cm_asp, display_labels=["No", "Yes"])
+        disp_asp.plot(cmap="Blues", ax=axes[i], colorbar=False)
+        axes[i].set_title(f"{asp_name} Aspect Confusion Matrix")
+    plt.tight_layout()
+    plt.savefig(OUTPUT_FIG_DIR / "aspect_confusion_matrices.png", dpi=300)
+    plt.close()
+
     # --- Item 3: Sentiment Classification Report ---
     print("  └─ Generating Item 3: Sentiment Classification Report...")
     sent_report = classification_report(sent_targets, sent_preds, target_names=sentiment_classes, digits=4)
@@ -260,7 +272,7 @@ def run_complete_evaluation():
     print("  └─ Generating Item 4: Aspect Classification Report & Metrics Chart...")
     asp_report = classification_report(asp_targets, asp_preds, target_names=aspect_classes, digits=4, zero_division=0)
     with open(OUTPUT_REP_DIR / "aspect_classification_report.txt", "w") as f:
-        f.write("=== ASPECT RISK CLASSIFICATION REPORT ===\n\n")
+        f.write("=== ASPECT CLASSIFICATION REPORT ===\n\n")
         f.write(asp_report)
 
     # Compute Aspect Precision, Recall, F1 per class for Grouped Bar Chart
@@ -312,7 +324,7 @@ def run_complete_evaluation():
         roc_auc = auc(fpr, tpr)
         ax2.plot(fpr, tpr, lw=2, label=f"{asp_name} (AUC = {roc_auc:.3f})")
     ax2.plot([0, 1], [0, 1], "k--", lw=1.5)
-    ax2.set_title("Aspect Risk ROC Curves")
+    ax2.set_title("Aspect ROC Curves")
     ax2.set_xlabel("False Positive Rate")
     ax2.set_ylabel("True Positive Rate")
     ax2.legend(loc="lower right")
@@ -337,7 +349,7 @@ def run_complete_evaluation():
         prec, rec, _ = precision_recall_curve(asp_targets[:, i], asp_probs[:, i])
         ap = average_precision_score(asp_targets[:, i], asp_probs[:, i])
         ax2.plot(rec, prec, lw=2, label=f"{asp_name} (AP = {ap:.3f})")
-    ax2.set_title("Aspect Risk Precision-Recall Curves")
+    ax2.set_title("Aspect Precision-Recall Curves")
     ax2.set_xlabel("Recall")
     ax2.set_ylabel("Precision")
     ax2.legend(loc="lower left")
