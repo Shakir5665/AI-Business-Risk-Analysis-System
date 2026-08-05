@@ -371,14 +371,28 @@ def run_complete_evaluation():
         train_total = history_data["train_loss_total"]
         val_total = history_data["val_loss_total"]
 
-        # Item 7: Loss Curves
-        fig, ax = plt.subplots(figsize=(8, 5))
-        ax.plot(epochs, train_total, "o-", label="Train Total Loss", color="#2980b9")
-        ax.plot(epochs, val_total, "s-", label="Validation Total Loss", color="#e74c3c")
-        ax.set_title("Loss Curves: Training vs Validation Loss")
-        ax.set_xlabel("Epoch")
-        ax.set_ylabel("Loss")
-        ax.legend()
+        # Item 7: Loss Curves (Total Loss & Sub-loss Breakdown)
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+        
+        # Left Subplot: Total Loss
+        ax1.plot(epochs, train_total, "o-", label="Train Total Loss", color="#2980b9", lw=2)
+        ax1.plot(epochs, val_total, "s-", label="Validation Total Loss", color="#e74c3c", lw=2)
+        ax1.set_title("Overall Training vs Validation Loss")
+        ax1.set_xlabel("Epoch")
+        ax1.set_ylabel("Loss")
+        ax1.legend()
+
+        # Right Subplot: Sentiment & Aspect Task Losses
+        if "train_loss_sentiment" in history_data and "val_loss_sentiment" in history_data:
+            ax2.plot(epochs, history_data["train_loss_sentiment"], "--", label="Train Sentiment Loss", color="#3498db")
+            ax2.plot(epochs, history_data["val_loss_sentiment"], "-", label="Val Sentiment Loss", color="#2ecc71")
+            ax2.plot(epochs, history_data["train_loss_aspect"], "--", label="Train Aspect Loss", color="#9b59b6")
+            ax2.plot(epochs, history_data["val_loss_aspect"], "-", label="Val Aspect Loss", color="#e67e22")
+            ax2.set_title("Task Breakdown Losses (Sentiment & Aspect)")
+            ax2.set_xlabel("Epoch")
+            ax2.set_ylabel("Loss")
+            ax2.legend()
+
         plt.tight_layout()
         plt.savefig(OUTPUT_FIG_DIR / "loss_curves.png", dpi=300)
         plt.close()
