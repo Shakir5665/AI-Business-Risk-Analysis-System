@@ -45,7 +45,7 @@ SHUFFLE_TEST = False
 
 BATCH_SIZE = 64
 
-NUM_EPOCHS = 50
+NUM_EPOCHS = 60
 
 # --------------------------------------------------
 # Optimizer
@@ -92,6 +92,6 @@ GDRIVE_PLOTS_DIR = f"{GDRIVE_DIR}/outputs/plots"
 
 EARLY_STOPPING = True
 
-EARLY_STOPPING_PATIENCE = 5
+EARLY_STOPPING_PATIENCE = 7
 
 MIN_DELTA = 0.0001
