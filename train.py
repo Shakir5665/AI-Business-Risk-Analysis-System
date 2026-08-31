@@ -222,13 +222,8 @@ if checkpoint is not None:
     trainer.start_epoch = checkpoint["epoch"] + 1
     trainer.load_history()
 
-    trainer.best_validation_loss = checkpoint.get(
-
-        "validation_loss",
-
-        float("inf")
-
-    )
+    if "validation_loss" in checkpoint:
+        trainer.best_validation_loss = checkpoint["validation_loss"]
 
     print()
 

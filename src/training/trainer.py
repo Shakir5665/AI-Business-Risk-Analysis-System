@@ -18,6 +18,7 @@ from configs.training_config import (
     NUM_EPOCHS,
     GRADIENT_CLIP,
     EARLY_STOPPING,
+    MIN_DELTA,
     GDRIVE_CHECKPOINT_DIR,
     GDRIVE_REPORTS_DIR
 )
@@ -80,6 +81,8 @@ class Trainer:
         self.num_epochs = NUM_EPOCHS
 
         self.gradient_clip = GRADIENT_CLIP
+
+        self.min_delta = MIN_DELTA
 
         self.best_validation_loss = float("inf")
         self.best_epoch = None
@@ -167,6 +170,10 @@ class Trainer:
                                 self.best_epoch = self.history["epochs"][min_idx]
                                 self.history["best_val_loss"] = min_val_loss
                                 self.history["best_epoch"] = self.best_epoch
+                                if self.early_stopping is not None:
+                                    self.early_stopping.best_loss = min_val_loss
+                                    if len(self.history["early_stopping_counter"]) > 0:
+                                        self.early_stopping.counter = self.history["early_stopping_counter"][-1]
 
                             self.history["early_stopping_triggered"] = False
                             self.history["early_stopped_at_epoch"] = None
@@ -333,7 +340,7 @@ class Trainer:
             # -----------------------------
 
             is_best = False
-            if validation_loss < self.best_validation_loss:
+            if validation_loss < (self.best_validation_loss - self.min_delta):
 
                 self.best_validation_loss = validation_loss
                 self.best_epoch = epoch
@@ -367,7 +374,12 @@ class Trainer:
             es_counter = 0
 
             if self.early_stopping is not None:
-                early_stop_triggered = self.early_stopping.should_stop(validation_loss)
+                if is_best:
+                    self.early_stopping.best_loss = self.best_validation_loss
+                    self.early_stopping.counter = 0
+                    early_stop_triggered = False
+                else:
+                    early_stop_triggered = self.early_stopping.should_stop(validation_loss)
                 es_counter = getattr(self.early_stopping, "counter", 0)
 
             # -----------------------------
