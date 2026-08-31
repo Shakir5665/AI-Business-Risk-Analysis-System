@@ -2,7 +2,7 @@
 Google Drive Checkpoint & History Sync Utility
 
 Synchronizes training artifacts (`best_model.pt`, `latest_checkpoint.pt`, `history.json`)
-from the local Google Colab runtime to persistent Google Drive storage.
+strictly from the local `checkpoints/` folder to persistent Google Drive storage.
 
 Project:
 AI-Powered Business Risk Analysis
@@ -38,15 +38,13 @@ try:
         CHECKPOINT_DIR as CFG_LOCAL_CKPT,
         BEST_MODEL_NAME as CFG_BEST_NAME,
         LATEST_CHECKPOINT_NAME as CFG_LATEST_NAME,
-        GDRIVE_CHECKPOINT_DIR as CFG_GDRIVE_CKPT,
-        GDRIVE_REPORTS_DIR as CFG_GDRIVE_REPORTS
+        GDRIVE_CHECKPOINT_DIR as CFG_GDRIVE_CKPT
     )
 except Exception:
     CFG_LOCAL_CKPT = "checkpoints"
     CFG_BEST_NAME = "best_model.pt"
     CFG_LATEST_NAME = "latest_checkpoint.pt"
     CFG_GDRIVE_CKPT = "/content/drive/MyDrive/AI-Business-Risk-Analysis-System/checkpoints"
-    CFG_GDRIVE_REPORTS = "/content/drive/MyDrive/AI-Business-Risk-Analysis-System/Outputs/reports"
 
 
 def format_size(bytes_size: int) -> str:
@@ -113,25 +111,6 @@ def ensure_drive_mounted(mount_point: str = "/content/drive") -> bool:
         return False
 
 
-def find_latest_source_file(filename: str, search_dirs: list) -> Path:
-    """
-    Search across multiple candidate directories and return the
-    file with the most recent modification time.
-    """
-    candidates = []
-    for d in search_dirs:
-        candidate = Path(d) / filename
-        if candidate.exists() and candidate.is_file():
-            candidates.append(candidate)
-
-    if not candidates:
-        return None
-
-    # Return candidate with the latest modification timestamp
-    candidates.sort(key=lambda p: p.stat().st_mtime, reverse=True)
-    return candidates[0]
-
-
 def copy_file(src: Path, dst: Path, force: bool = False, dry_run: bool = False) -> tuple:
     """
     Copies src to dst.
@@ -182,19 +161,17 @@ def copy_file(src: Path, dst: Path, force: bool = False, dry_run: bool = False) 
 def sync_to_gdrive(
     local_checkpoint_dir: str = CFG_LOCAL_CKPT,
     gdrive_checkpoint_dir: str = CFG_GDRIVE_CKPT,
-    gdrive_reports_dir: str = CFG_GDRIVE_REPORTS,
     force: bool = False,
     dry_run: bool = False,
     sync_all_files: bool = True
 ) -> dict:
     """
     Synchronizes best_model.pt, latest_checkpoint.pt, and history.json
-    (plus any additional checkpoints) from Colab to Google Drive.
+    (plus any additional files) strictly from local checkpoints/ to Google Drive.
 
     Parameters:
-        local_checkpoint_dir: Path to local checkpoints folder (e.g. 'checkpoints')
+        local_checkpoint_dir: Path to local checkpoints folder (default: 'checkpoints')
         gdrive_checkpoint_dir: Target Google Drive checkpoints path
-        gdrive_reports_dir: Target Google Drive reports path
         force: If True, forces overwrite regardless of timestamps/hash
         dry_run: If True, only previews changes without copying
         sync_all_files: If True, also syncs any additional checkpoint files found
@@ -206,7 +183,7 @@ def sync_to_gdrive(
     print(" 🚀 Google Drive Checkpoint & History Sync")
     print("=" * 72)
     print(f"Timestamp        : {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print(f"Local Directory  : {Path(local_checkpoint_dir).resolve()}")
+    print(f"Source Directory : {Path(local_checkpoint_dir).resolve()} (ONLY)")
     print(f"Drive Destination: {gdrive_checkpoint_dir}")
     print(f"Force Overwrite  : {force}")
     print(f"Dry Run Mode     : {dry_run}")
@@ -216,47 +193,40 @@ def sync_to_gdrive(
     ensure_drive_mounted()
 
     results = {}
-    # Search directories prioritizing outputs/reports where training logs are saved
-    search_dirs = [
-        Path("outputs/reports"),
-        Path(local_checkpoint_dir),
-        Path("outputs"),
-        Path(".")
+    local_dir = Path(local_checkpoint_dir)
+
+    # Explicit list of primary targets sourced strictly from local_checkpoint_dir
+    primary_filenames = [
+        CFG_BEST_NAME,
+        CFG_LATEST_NAME,
+        "history.json"
     ]
 
-    # Target key files to synchronize
-    target_files = [
-        (CFG_BEST_NAME, Path(gdrive_checkpoint_dir) / CFG_BEST_NAME),
-        (CFG_LATEST_NAME, Path(gdrive_checkpoint_dir) / CFG_LATEST_NAME),
-        ("history.json", Path(gdrive_checkpoint_dir) / "history.json"),
-    ]
-
-    # Also sync history.json to reports dir in Drive if specified
-    if gdrive_reports_dir and str(gdrive_reports_dir) != str(gdrive_checkpoint_dir):
-        target_files.append(("history.json", Path(gdrive_reports_dir) / "history.json"))
+    files_to_sync = []
+    for fname in primary_filenames:
+        src = local_dir / fname
+        dst = Path(gdrive_checkpoint_dir) / fname
+        files_to_sync.append((fname, src, dst))
 
     # Also collect any extra files present in the local checkpoint folder
-    local_dir_path = Path(local_checkpoint_dir)
-    if local_dir_path.exists() and sync_all_files:
-        for extra_file in local_dir_path.glob("*"):
-            if extra_file.is_file() and extra_file.name not in [t[0] for t in target_files]:
-                target_files.append((extra_file.name, Path(gdrive_checkpoint_dir) / extra_file.name))
+    if local_dir.exists() and sync_all_files:
+        for extra_file in local_dir.glob("*"):
+            if extra_file.is_file() and extra_file.name not in primary_filenames:
+                dst = Path(gdrive_checkpoint_dir) / extra_file.name
+                files_to_sync.append((extra_file.name, extra_file, dst))
 
-    print(f"{'Target File':<28} | {'Status':<10} | {'Details'}")
+    print(f"{'File Name':<28} | {'Status':<10} | {'Details'}")
     print("-" * 72)
 
-    for filename, dst_path in target_files:
-        src_path = find_latest_source_file(filename, search_dirs)
-
-        if src_path is None or not src_path.exists():
+    for filename, src_path, dst_path in files_to_sync:
+        if not src_path.exists():
             status = "NOT FOUND"
-            message = "Local file does not exist yet"
+            message = f"Missing in {local_checkpoint_dir}/"
         else:
             status, message = copy_file(src_path, dst_path, force=force, dry_run=dry_run)
 
         results[f"{filename} -> {dst_path}"] = {"status": status, "message": message}
-        display_name = f"{filename} ({dst_path.parent.name}/)"
-        print(f"{display_name:<28} | {status:<10} | {message}")
+        print(f"{filename:<28} | {status:<10} | {message}")
 
     print("=" * 72)
     return results
@@ -270,7 +240,7 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(
-        description="Sync best_model.pt, latest_checkpoint.pt, and history.json to Google Drive."
+        description="Sync best_model.pt, latest_checkpoint.pt, and history.json strictly from checkpoints/ to Google Drive."
     )
     parser.add_argument(
         "--source",
@@ -285,12 +255,6 @@ if __name__ == "__main__":
         help="Google Drive destination directory"
     )
     parser.add_argument(
-        "--reports-dest",
-        type=str,
-        default=CFG_GDRIVE_REPORTS,
-        help="Google Drive reports destination directory"
-    )
-    parser.add_argument(
         "--force", "-f",
         action="store_true",
         help="Force overwrite all files regardless of checksums"
@@ -303,7 +267,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--target-only",
         action="store_true",
-        help="Sync only the 3 primary files without scanning for extra files"
+        help="Sync only best_model.pt, latest_checkpoint.pt, and history.json"
     )
 
     args = parser.parse_args()
@@ -311,7 +275,6 @@ if __name__ == "__main__":
     sync_to_gdrive(
         local_checkpoint_dir=args.source,
         gdrive_checkpoint_dir=args.dest,
-        gdrive_reports_dir=args.reports_dest,
         force=args.force,
         dry_run=args.dry_run,
         sync_all_files=not args.target_only
