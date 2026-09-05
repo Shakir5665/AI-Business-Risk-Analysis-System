@@ -51,7 +51,7 @@ NUM_EPOCHS = 100
 # Optimizer
 # --------------------------------------------------
 
-LEARNING_RATE = 5e-5
+LEARNING_RATE = 1e-4
 
 WEIGHT_DECAY = 0.01
 
@@ -94,4 +94,4 @@ EARLY_STOPPING = True
 
 EARLY_STOPPING_PATIENCE = 5
 
-MIN_DELTA = 0.0001
+MIN_DELTA = 0.001
